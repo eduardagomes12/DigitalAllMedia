@@ -1,0 +1,31 @@
+<ion-content class="login-bg">
+
+  <div class="login-container">
+
+    <h2 class="titulo-login">Login <ion-icon name="person-circle-outline"></ion-icon></h2>
+    <p class="subtitulo">Seja bem-vindo!</p>
+
+    <img src="assets/logo.png" class="logo-img" alt="Logo">
+
+    <ion-item class="input-personalizado" lines="none">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input [(ngModel)]="email" type="email" placeholder="nome@exemplo.com"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-personalizado" lines="none">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input [(ngModel)]="password" type="password" placeholder="********"></ion-input>
+    </ion-item>
+
+    <p class="recuperar-senha" routerLink="/recuperar-password">Esqueci-me da password.</p>
+
+    <ion-button expand="block" class="botao-login" (click)="login()">
+      Login
+    </ion-button>
+
+    <p class="criar-conta">Ainda não tem conta? 
+      <span class="link" routerLink="/signup">Criar conta</span>
+    </p>
+
+  </div>
+</ion-content>

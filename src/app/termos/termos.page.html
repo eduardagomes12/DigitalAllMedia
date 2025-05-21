@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Termos e Condições</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Termos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-text color="medium">
+        <p>
+          Ao usar a aplicação DigitalALLMedia, concordas com os seguintes termos:
+        </p>
+        <p>
+          1. Respeitarás os direitos de autor das imagens e vídeos.
+        </p>
+        <p>
+          2. Não utilizarás a aplicação para partilhar conteúdos ilegais.
+        </p>
+        <p>
+          3. A tua informação pessoal será tratada com confidencialidade.
+        </p>
+        <p>
+          4. Podemos alterar estes termos a qualquer momento.
+        </p>
+        <p>
+          (... mais texto pode ser adicionado conforme o necessário ...)
+        </p>
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" (click)="aceitar()">
+    Aceito os Termos
+  </ion-button>
+
+</ion-content>

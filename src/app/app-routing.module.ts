@@ -1,0 +1,49 @@
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  // ✅ Página inicial da app → Login
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  // ✅ Páginas do sistema (autenticação)
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+  },
+  {
+    path: 'signup',
+    loadChildren: () => import('./signup/signup.module').then(m => m.SignupPageModule)
+  },
+  {
+    path: 'termos',
+    loadChildren: () => import('./termos/termos.module').then(m => m.TermosPageModule)
+  },
+  {
+    path: 'recuperar-password',
+    loadChildren: () => import('./recuperar-password/recuperar-password.module').then(m => m.RecuperarPasswordPageModule)
+  },
+  {
+    path: 'verificar-codigo',
+    loadChildren: () => import('./verificar-codigo/verificar-codigo.module').then(m => m.VerificarCodigoPageModule)
+  },
+  {
+    path: 'nova-password',
+    loadChildren: () => import('./nova-password/nova-password.module').then(m => m.NovaPasswordPageModule)
+  },
+  // ✅ Tabs só acessíveis depois do login
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  }
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}

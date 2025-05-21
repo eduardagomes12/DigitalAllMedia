@@ -1,0 +1,7 @@
+{
+  "name": "digitalallmedia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
