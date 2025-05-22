@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-signup',
@@ -15,19 +16,28 @@ export class SignupPage implements OnInit {
   confirmarPassword: string = '';
   erro: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private toastController: ToastController,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
   criarConta() {
     if (!this.nome || !this.email || !this.password || !this.confirmarPassword) {
-      this.erro = 'Preenche todos os campos.';
+      this.erro = 'Please fill out all fields.';
     } else if (this.password !== this.confirmarPassword) {
-      this.erro = 'As palavras-passe não coincidem.';
+      this.erro = 'Passwords do not match.';
     } else {
-      // Podes guardar num service ou ir para o backend mais tarde
       this.erro = '';
-      alert('Conta criada com sucesso!');
+
+      this.toastController.create({
+        message: 'Account successfully created!',
+        duration: 2000,
+        position: 'top',
+        cssClass: 'custom-toast'
+      }).then(toast => toast.present());      
+
       this.router.navigateByUrl('/login');
     }
   }

@@ -35,3 +35,11 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+.custom-toast {
+    --background: #6b0f0f !important;
+    --color: #ffffff !important;
+    font-weight: 600;
+    text-align: center;
+  }
+  
