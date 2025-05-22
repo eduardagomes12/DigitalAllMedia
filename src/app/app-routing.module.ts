@@ -56,6 +56,10 @@ const routes: Routes = [
   {
     path: 'impressao',
     loadChildren: () => import('./impressao/impressao.module').then( m => m.ImpressaoPageModule)
+  },
+  {
+    path: 'adicionar-arquivo',
+    loadChildren: () => import('./adicionar-arquivo/adicionar-arquivo.module').then( m => m.AdicionarArquivoPageModule)
   }
 
 ];
