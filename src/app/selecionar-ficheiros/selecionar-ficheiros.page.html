@@ -9,9 +9,10 @@
   <ion-title class="top-title">Digital ALL Media</ion-title>
 
   <ion-buttons slot="end">
-    <ion-button fill="clear">
-      <ion-icon name="search-outline"></ion-icon>
-    </ion-button>
+    <ion-button fill="clear" (click)="mostrarPesquisa = !mostrarPesquisa">
+    <ion-icon name="search-outline"></ion-icon>
+  </ion-button>
+
     <ion-button fill="clear">
       <ion-icon name="settings-outline"></ion-icon>
     </ion-button>
@@ -22,16 +23,17 @@
 
 <ion-content class="ion-padding">
 
-  <div class="segment-wrapper">
-    <ion-segment [(ngModel)]="segmento" value="recentes">
-      <ion-segment-button value="recentes">
-        <ion-label>Recents</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="cloud">
-        <ion-label>Cloud</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </div>
+<div class="segment-wrapper">
+  <ion-segment [(ngModel)]="segmento" (ionChange)="atualizarFicheiros()">
+    <ion-segment-button value="recentes">
+      <ion-label>recents</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="cloud">
+      <ion-label>cloud</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
 
   <ion-grid>
     <ion-row>
@@ -50,3 +52,11 @@
 <ion-footer class="footer">
   <ion-button expand="block" class="botao-continuar" (click)="continuar()">Continue</ion-button>
 </ion-footer>
+<ion-searchbar
+  *ngIf="mostrarPesquisa"
+  [(ngModel)]="textoPesquisa"
+  (ionInput)="filtrarFicheiros()"
+  placeholder="Search..."
+  animated
+  showClearButton="always">
+</ion-searchbar>

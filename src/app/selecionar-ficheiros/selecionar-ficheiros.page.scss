@@ -20,16 +20,15 @@ ion-content {
 .segment-wrapper {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 16px 0;
 }
 
 ion-segment {
-  --background: #eeeeee;
-  --indicator-color: transparent;
+  width: 240px; // Ajusta para o tamanho que preferires
+  height: 42px;
   border-radius: 20px;
+  --background: #eee;
   padding: 4px;
-  width: 90%;
-  max-width: 300px;
 }
 
 ion-segment-button {
@@ -37,7 +36,8 @@ ion-segment-button {
   --background-checked: #000;
   --color-checked: #fff;
   border-radius: 14px;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 12px;
 }
 
 ion-card {
