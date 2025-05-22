@@ -60,6 +60,10 @@ const routes: Routes = [
   {
     path: 'adicionar-arquivo',
     loadChildren: () => import('./adicionar-arquivo/adicionar-arquivo.module').then( m => m.AdicionarArquivoPageModule)
+  },
+  {
+    path: 'selecionar-ficheiros',
+    loadChildren: () => import('./selecionar-ficheiros/selecionar-ficheiros.module').then( m => m.SelecionarFicheirosPageModule)
   }
 
 ];
