@@ -1,0 +1,47 @@
+:host {
+  --ion-background-color: #F6F6F6;
+}
+
+.titulo {
+  color: #8A1E1E;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-left: 8px;
+}
+
+.botao-cancelar {
+  float: right;
+  margin-right: 10px;
+  margin-top: -38px;
+}
+
+.passos {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.passo {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+
+  ion-icon.ponto {
+    color: #8A1E1E;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  small {
+    color: #666;
+  }
+}
+
+.botao-add {
+  margin-top: 40px;
+  background-color: #8A1E1E;
+  border-radius: 12px;
+  font-weight: bold;
+}
