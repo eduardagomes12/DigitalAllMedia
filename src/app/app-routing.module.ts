@@ -37,7 +37,31 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },  {
+    path: 'criar-album',
+    loadChildren: () => import('./criar-album/criar-album.module').then( m => m.CriarAlbumPageModule)
+  },
+  {
+    path: 'remover-album',
+    loadChildren: () => import('./remover-album/remover-album.module').then( m => m.RemoverAlbumPageModule)
+  },
+  {
+    path: 'editar-album',
+    loadChildren: () => import('./editar-album/editar-album.module').then( m => m.EditarAlbumPageModule)
+  },
+  {
+    path: 'editar-ficheiros',
+    loadChildren: () => import('./editar-ficheiros/editar-ficheiros.module').then( m => m.EditarFicheirosPageModule)
+  },
+  {
+    path: 'impressao',
+    loadChildren: () => import('./impressao/impressao.module').then( m => m.ImpressaoPageModule)
+  },
+  {
+    path: 'adicionar-arquivo',
+    loadChildren: () => import('./adicionar-arquivo/adicionar-arquivo.module').then( m => m.AdicionarArquivoPageModule)
   }
+
 ];
 
 @NgModule({
