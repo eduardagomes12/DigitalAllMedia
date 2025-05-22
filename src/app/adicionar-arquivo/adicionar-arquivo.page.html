@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/impressao">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Adicionar Arquivo</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-segment value="recentes" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="recentes">
+      <ion-label>Recentes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="albuns">
+      <ion-label>Álbuns</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" *ngFor="let imagem of imagens">
+        <ion-img [src]="imagem.thumb"></ion-img>
+        <div class="duracao" *ngIf="imagem.duracao">{{ imagem.duracao }}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-button expand="block" class="botao-add" color="danger">
+    <ion-icon name="add" slot="start"></ion-icon>
+    Adicionar
+  </ion-button>
+</ion-content>
