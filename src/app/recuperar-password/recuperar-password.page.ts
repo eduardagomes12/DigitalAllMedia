@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-recuperar-password',
@@ -12,19 +13,35 @@ export class RecuperarPasswordPage {
   email: string = '';
   erro: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private toastController: ToastController
+  ) {}
 
-  enviarCodigo() {
-    if (!this.email.includes('@')) {
-      this.erro = 'Email inválido';
+  async enviarCodigo() {
+    if (!this.validarEmail(this.email)) {
+      this.erro = 'Invalid email address';
+      
+      const toast = await this.toastController.create({
+        message: 'Please enter a valid email address!',
+        duration: 2000,
+        position: 'top',
+        color: 'danger'
+      });
+
+      await toast.present();
     } else {
       this.erro = '';
-      // Simula envio e vai para o passo seguinte
       this.router.navigateByUrl('/verificar-codigo');
     }
   }
+
   voltar() {
     this.router.navigateByUrl('/login');
   }
-  
+
+  validarEmail(email: string): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
 }
