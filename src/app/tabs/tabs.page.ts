@@ -7,7 +7,9 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class TabsPage {
+  mostrarMenu = false;
 
-  constructor() {}
-
+  toggleMenu() {
+    this.mostrarMenu = !this.mostrarMenu;
+  }
 }
