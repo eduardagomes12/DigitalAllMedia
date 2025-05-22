@@ -1,22 +1,33 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Verificar Código</ion-title>
+<ion-header class="verify-header">
+  <ion-toolbar class="verify-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/recuperar-password" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="verify-title">Verify your Email</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="verify-bg">
+  <div class="verify-container">
 
-  <ion-item>
-    <ion-label position="floating">Código</ion-label>
-    <ion-input [(ngModel)]="codigo" type="text" maxlength="6"></ion-input>
-  </ion-item>
+    <p class="verify-instructions">
+      We sent a link to <strong>name&#64;example.com</strong>. Enter the 4-digit code from your email.
+    </p>
 
-  <div *ngIf="erro" class="ion-text-center ion-margin">
-    <ion-text color="danger">{{ erro }}</ion-text>
+    <div class="code-inputs">
+      <ion-input type="text" maxlength="1" class="code-box" inputmode="numeric" [(ngModel)]="code1"></ion-input>
+      <ion-input type="text" maxlength="1" class="code-box" inputmode="numeric" [(ngModel)]="code2"></ion-input>
+      <ion-input type="text" maxlength="1" class="code-box" inputmode="numeric" [(ngModel)]="code3"></ion-input>
+      <ion-input type="text" maxlength="1" class="code-box" inputmode="numeric" [(ngModel)]="code4"></ion-input>
+    </div>
+
+    <ion-button expand="block" class="verify-button" (click)="verificarCodigo()">
+      Verify Code
+    </ion-button>
+
+    <p class="resend-text">
+      Didn’t get the email? <span class="link" (click)="reenviarCodigo()">Resend email</span>
+    </p>
+
   </div>
-
-  <ion-button expand="block" class="ion-margin-top" (click)="verificar()">
-    Confirmar
-  </ion-button>
-
 </ion-content>

@@ -23,4 +23,8 @@ export class RecuperarPasswordPage {
       this.router.navigateByUrl('/verificar-codigo');
     }
   }
+  voltar() {
+    this.router.navigateByUrl('/login');
+  }
+  
 }
