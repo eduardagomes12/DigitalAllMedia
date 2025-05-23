@@ -23,22 +23,14 @@ export class SignupPage implements OnInit {
 
   ngOnInit() {}
 
-  criarConta() {
+  irParaTermos() {
     if (!this.nome || !this.email || !this.password || !this.confirmarPassword) {
       this.erro = 'Please fill out all fields.';
     } else if (this.password !== this.confirmarPassword) {
       this.erro = 'Passwords do not match.';
     } else {
       this.erro = '';
-
-      this.toastController.create({
-        message: 'Account successfully created!',
-        duration: 2000,
-        position: 'top',
-        cssClass: 'custom-toast'
-      }).then(toast => toast.present());      
-
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/termos');
     }
   }
 }

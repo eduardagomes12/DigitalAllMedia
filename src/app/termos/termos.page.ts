@@ -8,11 +8,9 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class TermosPage {
-
   constructor(private router: Router) {}
 
-  aceitar() {
-    // Depois de aceitar, vai para o signup (ou outro passo)
-    this.router.navigateByUrl('/signup');
+  accept() {
+    this.router.navigateByUrl('/login');
   }
 }
