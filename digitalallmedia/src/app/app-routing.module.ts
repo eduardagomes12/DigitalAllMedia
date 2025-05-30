@@ -64,6 +64,10 @@ const routes: Routes = [
   {
     path: 'selecionar-ficheiros',
     loadChildren: () => import('./selecionar-ficheiros/selecionar-ficheiros.module').then( m => m.SelecionarFicheirosPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   }
 
 ];

@@ -1,15 +1,15 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button routerLink="/tabs">
-        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-      </ion-button>
+      <ion-avatar class="avatar-container" (click)="goToProfile()">
+        <img src="assets/images/icon_profile.png" />
+        <span class="online-indicator"></span>
+      </ion-avatar>
     </ion-buttons>
-    <ion-title>Digital ALL Media</ion-title>
+
+    <ion-title class="ion-text-center">Digital ALL Media</ion-title>
+
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="search-outline"></ion-icon>
-      </ion-button>
       <ion-button>
         <ion-icon name="settings-outline"></ion-icon>
       </ion-button>
@@ -17,52 +17,59 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content class="pagina ion-padding">
-  <div class="top-bar">
-    <h1 class="page-title">Create Order</h1>
-    <ion-button fill="outline" size="small" class="cancel-button" routerLink="/tabs">
-      CANCEL
-    </ion-button>
+
+  <!-- Envolvemos top-bar + stepper -->
+  <div class="conteudo">
+    <div class="top-bar">
+      <h1 class="page-title">Create Order</h1>
+      <ion-button fill="outline" size="small" class="cancel-button" routerLink="/tabs">
+        CANCEL
+      </ion-button>
+    </div>
+
+    <div class="stepper">
+      <div class="line"></div>
+
+      <div class="step active">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">1. Add File</div>
+          <div class="subtitle">e.g. Belgium Album</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">2. Print Type</div>
+          <div class="subtitle">e.g. PhotoBook</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">3. Delivery Details</div>
+          <div class="subtitle">e.g. Name, Address, Instructions</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">4. Confirm Order</div>
+          <div class="subtitle">e.g. Summary & Payment Method</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="stepper">
-    <div class="line"></div>
-
-    <div class="step active">
-      <div class="dot"></div>
-      <div class="text">
-        <div class="title">1. Add File</div>
-        <div class="subtitle">e.g. Belgium Album</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="dot"></div>
-      <div class="text">
-        <div class="title">2. Print Type</div>
-        <div class="subtitle">e.g. PhotoBook</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="dot"></div>
-      <div class="text">
-        <div class="title">3. Delivery Details</div>
-        <div class="subtitle">e.g. Name, Address, Instructions</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="dot"></div>
-      <div class="text">
-        <div class="title">4. Confirm Order</div>
-        <div class="subtitle">e.g. Summary & Payment Method</div>
-      </div>
-    </div>
-  </div>
-
+  <!-- Botão fora da .conteudo, empurrado para baixo com espaço -->
   <ion-button expand="block" class="add-button" routerLink="/adicionar-arquivo">
     <ion-icon name="add-circle" slot="start"></ion-icon>
     Add
   </ion-button>
+  
 </ion-content>

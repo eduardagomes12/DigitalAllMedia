@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-impressao',
@@ -6,4 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./impressao.page.scss'],
   standalone: false,
 })
-export class ImpressaoPage {}
+export class ImpressaoPage {
+  constructor(private router: Router) {}
+
+  goToProfile() {
+    this.router.navigate(['/profile']);
+  }
+}
