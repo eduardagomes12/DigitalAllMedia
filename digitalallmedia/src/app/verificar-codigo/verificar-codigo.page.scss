@@ -1,0 +1,82 @@
+.verify-bg {
+    --background: #f7f7f7;
+  }
+  
+  .verify-header {
+    --background: #f7f7f7 !important;
+    background: #f7f7f7 !important;
+  }
+  
+  .verify-toolbar {
+    --background: #f7f7f7 !important;
+    background: #f7f7f7 !important;
+    box-shadow: none;
+  }
+  
+  .verify-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+  }
+  
+  .verify-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; // centraliza verticalmente
+    height: calc(100% - 56px); // 100% da altura menos o header
+    padding: 30px 20px;
+  }
+  
+  .verify-instructions {
+    font-size: 14px;
+    color: #888;
+    font-weight: 500;
+    text-align: center;
+    margin: 20px 0 30px;
+    max-width: 340px;
+  }
+  
+  .code-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  
+  .code-box {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  
+  .verify-button {
+    --background: #6b0f0f;
+    --border-radius: 14px;
+    height: 45px;
+    width: 100%;
+    max-width: 380px;
+    text-transform: none;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .resend-text {
+    font-size: 13px;
+    color: #444;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .link {
+    color: #6b0f0f;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  

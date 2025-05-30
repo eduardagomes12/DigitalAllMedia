@@ -1,0 +1,74 @@
+
+.featured-card {
+  position: relative;
+  img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  .play-button {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    color: white;
+  }
+  .card-text {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    color: white;
+  }
+}
+
+.featured-card.small {
+  margin-top: 16px;
+  img {
+    height: 140px;
+  }
+}
+
+.custom-tab-bar {
+  --background: transparent;
+  border: none;
+  justify-content: space-around;
+  padding-bottom: 8px;
+
+  ion-tab-button {
+    background: #e2e2e2;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .center-tab {
+   background: #8A1E1E;
+    ion-icon {
+      color: white;
+      font-size: 30px;
+    }
+  }
+  .popup-menu {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  background-color: #8A1E1E;
+  border-radius: 16px;
+  z-index: 999;
+
+  ion-item {
+    --background: transparent;
+    color: white;
+
+    ion-icon {
+      color: white;
+    }
+  }
+}
+
+}

@@ -1,0 +1,56 @@
+<ion-content class="signup-bg">
+
+  <div class="signup-container">
+
+    <h2 class="signup-title">Create Account <ion-icon name="person-add-outline"></ion-icon></h2>
+    <p class="signup-subtitle">Welcome!</p>
+
+    <img src="assets/images/icon_profile.png" class="profile-img" alt="Profile Photo">
+    <p class="profile-caption">Profile Photo</p>
+
+    <label class="input-label">Name</label>
+    <ion-input
+      class="input-livre"
+      [(ngModel)]="nome"
+      type="text"
+      placeholder="Name"
+    ></ion-input>
+
+    <label class="input-label">Email</label>
+    <ion-input
+      class="input-livre"
+      [(ngModel)]="email"
+      type="email"
+      placeholder="name@example.com"
+    ></ion-input>
+
+    <label class="input-label">Password</label>
+    <ion-input
+      class="input-livre"
+      [(ngModel)]="password"
+      type="password"
+      placeholder="********"
+    ></ion-input>
+
+    <label class="input-label">Confirm Password</label>
+    <ion-input
+      class="input-livre"
+      [(ngModel)]="confirmarPassword"
+      type="password"
+      placeholder="********"
+    ></ion-input>
+
+    <div *ngIf="erro" class="ion-text-center ion-margin">
+      <ion-text color="danger">{{ erro }}</ion-text>
+    </div>
+
+    <ion-button expand="block" class="signup-button" (click)="irParaTermos()">
+      Create Account
+    </ion-button>
+
+    <p class="criar-conta">
+      Already have an account? <span class="link" routerLink="/login">Login</span>
+    </p>
+
+  </div>
+</ion-content>
