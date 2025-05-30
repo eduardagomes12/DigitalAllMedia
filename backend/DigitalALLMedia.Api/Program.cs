@@ -1,9 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using DigitalALLMedia.Api.Data; // onde está o AppDbContext
+using DigitalALLMedia.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// CORS
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:8100")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 // Add services
 builder.Services.AddControllers();
@@ -32,6 +46,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(MyAllowSpecificOrigins); // <== Aqui está o CORS ativado
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
