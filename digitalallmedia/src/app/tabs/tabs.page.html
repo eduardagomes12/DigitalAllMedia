@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="light">
     <ion-buttons slot="start">
       <ion-button>
         <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Digital ALL Media</ion-title>
+    <ion-title class="titulo-app">Digital ALL Media</ion-title>
     <ion-buttons slot="end">
       <ion-button>
         <ion-icon slot="icon-only" name="search-outline"></ion-icon>
@@ -17,64 +17,60 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="pagina-home" fullscreen>
 
+  <!-- CARD PRINCIPAL -->
   <ion-card class="featured-card">
-    <img src="assets/imgs/turquia.jpg" />
-    <ion-button fill="clear" class="play-button" size="small">
-      <ion-icon name="play-circle" size="large"></ion-icon>
+    <img src="assets/images/Turquia.jpg" />
+    <ion-button class="full-card-button" expand="full" fill="clear" routerLink="/album-preview">
+      <ion-icon name="play-circle"></ion-icon>
     </ion-button>
     <div class="card-text">
       <h2>TURQUIA</h2>
-      <p>11 Dec 2022</p>
+      <p>11 Dez 2022</p>
     </div>
   </ion-card>
 
+  <!-- CARD SECUNDÁRIO -->
   <ion-card class="featured-card small">
-    <img src="assets/imgs/sunset.jpg" />
+    <img src="assets/images/praia.jpg" />
   </ion-card>
 
-  <!-- MENU popup com opções -->
+  <!-- BARRA FLUTUANTE -->
+  <div class="floating-bar">
+    <ion-button fill="clear" routerLink="/impressao">
+      <ion-icon name="cart-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="solid" class="main-button" (click)="toggleMenu()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" routerLink="/explore-container">
+      <ion-icon name="albums-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- MENU POP-UP -->
   <ion-card *ngIf="mostrarMenu" class="popup-menu">
-    <ion-item button routerLink="/criar-album" lines="none" (click)="toggleMenu()">
-      <ion-icon name="folder-open" slot="start"></ion-icon>
+    <ion-item button routerLink="/criar-album" (click)="toggleMenu()" lines="none">
+      <ion-icon slot="start" name="folder-open"></ion-icon>
       <ion-label>Criar Álbum</ion-label>
     </ion-item>
-    <ion-item button routerLink="/remover-album" lines="none" (click)="toggleMenu()">
-      <ion-icon name="trash" slot="start"></ion-icon>
+    <ion-item button routerLink="/remover-album" (click)="toggleMenu()" lines="none">
+      <ion-icon slot="start" name="trash"></ion-icon>
       <ion-label>Remover Álbum</ion-label>
     </ion-item>
-    <ion-item button routerLink="/editar-album" lines="none" (click)="toggleMenu()">
-      <ion-icon name="create" slot="start"></ion-icon>
+    <ion-item button routerLink="/editar-album" (click)="toggleMenu()" lines="none">
+      <ion-icon slot="start" name="create"></ion-icon>
       <ion-label>Editar Álbum</ion-label>
     </ion-item>
-    <ion-item button routerLink="/editar-ficheiros" lines="none" (click)="toggleMenu()">
-      <ion-icon name="document-text" slot="start"></ion-icon>
-      <ion-label>Editar ficheiros</ion-label>
+    <ion-item button routerLink="/editar-ficheiros" (click)="toggleMenu()" lines="none">
+      <ion-icon slot="start" name="document-text"></ion-icon>
+      <ion-label>Editar Ficheiros</ion-label>
     </ion-item>
-    <ion-item button routerLink="/impressao" lines="none" (click)="toggleMenu()">
-      <ion-icon name="print" slot="start"></ion-icon>
+    <ion-item button routerLink="/impressao" (click)="toggleMenu()" lines="none">
+      <ion-icon slot="start" name="print"></ion-icon>
       <ion-label>Impressão</ion-label>
     </ion-item>
   </ion-card>
 
 </ion-content>
-
-<!-- Tab bar personalizada -->
-<ion-tabs>
-  <ion-tab-bar slot="bottom" class="custom-tab-bar">
-
-    <ion-tab-button tab="tab1">
-      <ion-icon name="cart-outline"></ion-icon>
-    </ion-tab-button>
-
-    <ion-tab-button tab="tab2" class="center-tab" (click)="toggleMenu()">
-      <ion-icon name="add-circle"></ion-icon>
-    </ion-tab-button>
-
-    <ion-tab-button tab="tab3">
-      <ion-icon name="albums-outline"></ion-icon>
-    </ion-tab-button>
-
-  </ion-tab-bar>
-</ion-tabs>
