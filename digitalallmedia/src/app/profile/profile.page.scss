@@ -1,0 +1,84 @@
+:host {
+  --ion-background-color: #F6F6F6;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 24px;
+}
+
+.header-icon {
+  font-size: 22px;
+  margin-left: 8px;
+  color: #000;
+}
+
+.avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.avatar-button {
+  padding: 0;
+  --background: transparent;
+  --box-shadow: none;
+}
+
+.avatar-container {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #ccc;
+  overflow: hidden;
+}
+
+.user-info-block {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.user-info-block h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.description-textarea {
+  margin-top: 8px;
+  font-size: 14px;
+  --padding-start: 0;
+  --padding-end: 0;
+  text-align: center;
+}
+
+.separator {
+  width: 80%;
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 16px auto;
+}
+
+.menu-list {
+  margin-bottom: 32px;
+}
+
+.footer {
+  margin-top: auto;
+  padding: 24px 0;
+  text-align: center;
+}
+
+.terms {
+  display: block;
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.logout {
+  font-weight: bold;
+  color: #000;
+}
