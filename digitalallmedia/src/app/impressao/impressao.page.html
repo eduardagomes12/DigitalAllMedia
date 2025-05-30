@@ -1,10 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-avatar class="avatar-container" (click)="goToProfile()">
-        <img src="assets/images/icon_profile.png" />
-        <span class="online-indicator"></span>
-      </ion-avatar>
+      <ion-button fill="clear" routerLink="/profile" class="avatar-button">
+        <ion-avatar class="avatar-container">
+          <img src="assets/images/icon_profile.png" />
+          <span class="online-indicator"></span>
+        </ion-avatar>
+      </ion-button>
     </ion-buttons>
 
     <ion-title class="ion-text-center">Digital ALL Media</ion-title>
