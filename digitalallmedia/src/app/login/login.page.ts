@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage-angular'; // ADICIONADO
 
 @Component({
   selector: 'app-login',
@@ -8,22 +9,25 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class LoginPage implements OnInit {
-
   email: string = '';
   password: string = '';
   erroLogin: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private storage: Storage) {} // ADICIONADO
 
-  ngOnInit() {}
+  async ngOnInit() {
+    await this.storage.create(); // GARANTE QUE O STORAGE ESTÁ PRONTO
+  }
 
-  login() {
+  async login() {
     if (this.email === 'admin@email.com' && this.password === '1234') {
-      // Limpa erro (caso haja) e navega para as tabs
       this.erroLogin = '';
+
+      // GUARDA O EMAIL NO STORAGE
+      await this.storage.set('userEmail', this.email);
+
       this.router.navigateByUrl('/tabs');
     } else {
-      // Mostra erro
       this.erroLogin = 'Credenciais inválidas. Tenta novamente.';
     }
   }
