@@ -17,49 +17,52 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h2 class="titulo">Criar Encomenda</h2>
-  <ion-button fill="clear" color="danger" class="botao-cancelar" size="small">
-    Cancelar
-  </ion-button>
+<ion-content class="pagina ion-padding">
+  <div class="top-bar">
+    <h1 class="page-title">Create Order</h1>
+    <ion-button fill="outline" size="small" class="cancel-button" routerLink="/tabs">
+      CANCEL
+    </ion-button>
+  </div>
 
-  <div class="passos">
-    <div class="passo">
-      <ion-icon name="ellipse" class="ponto"></ion-icon>
-      <div>
-        <strong>1. Adicionar arquivo</strong><br />
-        <small>Ex: Álbum da Bélgica</small>
+  <div class="stepper">
+    <div class="line"></div>
+
+    <div class="step active">
+      <div class="dot"></div>
+      <div class="text">
+        <div class="title">1. Add File</div>
+        <div class="subtitle">e.g. Belgium Album</div>
       </div>
     </div>
 
-    <div class="passo">
-      <ion-icon name="ellipse-outline" class="ponto"></ion-icon>
-      <div>
-        <strong>2. Tipo de Impressão</strong><br />
-        <small>Ex: FotoLivro</small>
+    <div class="step">
+      <div class="dot"></div>
+      <div class="text">
+        <div class="title">2. Print Type</div>
+        <div class="subtitle">e.g. PhotoBook</div>
       </div>
     </div>
 
-    <div class="passo">
-      <ion-icon name="ellipse-outline" class="ponto"></ion-icon>
-      <div>
-        <strong>3. Detalhes de Entrega</strong><br />
-        <small>Ex: Destinatário, Morada e Instruções</small>
+    <div class="step">
+      <div class="dot"></div>
+      <div class="text">
+        <div class="title">3. Delivery Details</div>
+        <div class="subtitle">e.g. Name, Address, Instructions</div>
       </div>
     </div>
 
-    <div class="passo">
-      <ion-icon name="ellipse-outline" class="ponto"></ion-icon>
-      <div>
-        <strong>4. Confirmar Encomenda</strong><br />
-        <small>Ex: Resumo da encomenda e Método de Pagamento (ex: Multibanco)</small>
+    <div class="step">
+      <div class="dot"></div>
+      <div class="text">
+        <div class="title">4. Confirm Order</div>
+        <div class="subtitle">e.g. Summary & Payment Method</div>
       </div>
     </div>
   </div>
 
- <ion-button expand="block" class="botao-add" color="danger" routerLink="/adicionar-arquivo">
-  <ion-icon name="add-circle" slot="start"></ion-icon>
-  Adicionar
-</ion-button>
-
+  <ion-button expand="block" class="add-button" routerLink="/adicionar-arquivo">
+    <ion-icon name="add-circle" slot="start"></ion-icon>
+    Add
+  </ion-button>
 </ion-content>
