@@ -1,17 +1,19 @@
 <ion-header>
-  <ion-toolbar color="light">
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button>
-        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+      <ion-button fill="clear" routerLink="/profile" class="avatar-button">
+        <ion-avatar class="avatar-container">
+          <img src="assets/images/icon_profile.png" />
+          <span class="online-indicator"></span>
+        </ion-avatar>
       </ion-button>
     </ion-buttons>
-    <ion-title class="titulo-app">Digital ALL Media</ion-title>
+
+    <ion-title class="ion-text-center">Digital ALL Media</ion-title>
+
     <ion-buttons slot="end">
       <ion-button>
-        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
-      </ion-button>
-      <ion-button>
-        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+        <ion-icon name="settings-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
