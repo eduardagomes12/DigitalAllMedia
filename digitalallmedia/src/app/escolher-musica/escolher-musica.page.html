@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar class="top-toolbar">
+    <ion-buttons slot="start">
+      <ion-button size="small" fill="solid" class="cancel-inline" (click)="cancelar()">
+        Cancel
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="top-title">Add Music</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content class="music-content" fullscreen>
+
+  <ion-searchbar placeholder="Search multiple keywords" class="custom-search"></ion-searchbar>
+
+  <div class="music-filters">
+    <ion-button fill="solid" class="filter-btn">iTunes</ion-button>
+    <ion-button fill="solid" class="filter-btn">Saved</ion-button>
+    <ion-button fill="solid" class="filter-btn">Imported Music</ion-button>
+  </div>
+
+  <ion-list>
+  <ion-item *ngFor="let musica of musicas">
+    <ion-thumbnail slot="start">
+      <ion-img [src]="'assets/images/' + musica.imagem"></ion-img>
+    </ion-thumbnail>
+
+    <ion-label>
+      {{ musica.titulo }}
+    </ion-label>
+
+    <ion-icon name="download-outline" slot="end" color="danger" class="icon-download"></ion-icon>
+  </ion-item>
+</ion-list>

@@ -1,0 +1,58 @@
+<ion-header class="header-fake" translucent>
+  <div class="topo-custom">
+    <ion-icon name="chevron-back-outline" class="icon-back" (click)="voltarParaTabs()"></ion-icon>
+    <div class="titulos">
+      <div class="titulo">{{ titulo }}</div>
+      <div class="data">{{ data }}</div>
+    </div>
+    <div class="icones">
+    <ion-icon
+      [name]="somAtivo ? 'volume-high-outline' : 'volume-mute-outline'"
+      (click)="toggleSom(); $event.stopPropagation()"></ion-icon>
+      <div class="dropdown-wrapper" (click)="$event.stopPropagation()">
+      <ion-icon
+        name="ellipsis-horizontal-outline"
+          (click)="toggleDropdown(); $event.stopPropagation()"></ion-icon>
+
+        <div class="dropdown-menu" *ngIf="dropdownAberto">
+          <div class="dropdown-item" (click)="apagarAlbum()">Apagar Álbum</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ion-header>
+
+<ion-content fullscreen class="pagina-slideshow" (click)="toggleControles()">
+  <audio #audioRef autoplay loop [src]="musica" hidden></audio>
+
+  <div class="slideshow">
+    <img
+      *ngFor="let foto of fotos; let i = index"
+      [src]="foto"
+      class="slide-img"
+      [class.visivel]="i === slideIndex"
+    />
+    <div
+      *ngIf="controlesVisiveis"
+      class="play-icon"
+      (click)="togglePlay(); $event.stopPropagation()"
+    >
+      <ion-icon [name]="playing ? 'pause-circle' : 'play-circle'"></ion-icon>
+    </div>
+  </div>
+
+  <div *ngIf="controlesVisiveis" class="barra-miniaturas">
+    <ion-icon name="musical-notes-outline" class="icon-music"></ion-icon>
+    <div class="miniaturas">
+      <div
+        class="thumb"
+        *ngFor="let foto of fotos; let i = index"
+        [class.ativa]="i === slideIndex"
+        (click)="goToSlide(i); $event.stopPropagation()"
+      >
+        <img [src]="foto" />
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,47 +1,41 @@
 <ion-header>
   <ion-toolbar color="light" class="top-bar">
-  <ion-buttons slot="start">
-    <ion-avatar class="avatar-perfil">
-      <img src="assets/images/icon_profile.png" alt="Profile Picture">
-    </ion-avatar>
-  </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs"></ion-back-button>
+      <ion-avatar class="avatar-perfil">
+        <img src="assets/images/icon_profile.png" alt="Profile Picture" />
+      </ion-avatar>
+    </ion-buttons>
 
-  <ion-title class="top-title">Digital ALL Media</ion-title>
+    <ion-title class="top-title">Digital ALL Media</ion-title>
 
-  <ion-buttons slot="end">
-    <ion-button fill="clear" (click)="mostrarPesquisa = !mostrarPesquisa">
-    <ion-icon name="search-outline"></ion-icon>
-  </ion-button>
-
-    <ion-button fill="clear">
-      <ion-icon name="settings-outline"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-</ion-toolbar>
-
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
 
-<div class="segment-wrapper">
-  <ion-segment [(ngModel)]="segmento" (ionChange)="atualizarFicheiros()">
-    <ion-segment-button value="recentes">
-      <ion-label>recents</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="cloud">
-      <ion-label>cloud</ion-label>
-    </ion-segment-button>
-  </ion-segment>
-</div>
-
+  <!-- Mensagem de orientação -->
+  <div class="info-message">
+    Start your album by selecting pictures below or adding your own.
+  </div>
 
   <ion-grid>
     <ion-row>
-      <ion-col size="4" *ngFor="let item of ficheiros; let i = index">
-        <ion-card (click)="alternarSelecao(i)" [class.selected]="item.selecionado">
-          <img [src]="item.thumbnail" />
-          <div class="duracao">{{ item.duracao }}</div>
-          <ion-icon *ngIf="item.selecionado" name="checkmark-circle" class="check-icon"></ion-icon>
+      <ion-col size="4" *ngFor="let foto of fotosPadrao; let i = index">
+        <!-- Cartão "+" -->
+        <ion-card *ngIf="foto.tipo === 'adicionar'" class="card-add" (click)="abrirSeletorDeImagens()">
+          <div class="icone-add">+</div>
+        </ion-card>
+
+        <!-- Cartões normais -->
+        <ion-card *ngIf="!foto.tipo" (click)="toggleSelecao(i)" [class.selected]="foto.selecionado">
+          <img [src]="foto.caminho" />
+          <ion-icon *ngIf="foto.selecionado" name="checkmark-circle" class="check-icon"></ion-icon>
         </ion-card>
       </ion-col>
     </ion-row>
@@ -50,13 +44,5 @@
 </ion-content>
 
 <ion-footer class="footer">
-  <ion-button expand="block" class="botao-continuar" (click)="continuar()">Continue</ion-button>
+  <ion-button expand="block" class="botao-continuar" (click)="confirmarSelecao()">Continue</ion-button>
 </ion-footer>
-<ion-searchbar
-  *ngIf="mostrarPesquisa"
-  [(ngModel)]="textoPesquisa"
-  (ionInput)="filtrarFicheiros()"
-  placeholder="Search..."
-  animated
-  showClearButton="always">
-</ion-searchbar>

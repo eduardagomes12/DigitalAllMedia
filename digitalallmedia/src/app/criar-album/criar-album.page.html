@@ -1,17 +1,15 @@
 <ion-header>
-  <ion-toolbar class="top-bar">
+  <ion-toolbar color="light" class="top-bar">
     <ion-buttons slot="start">
+      <ion-back-button defaultHref="/selecionar-ficheiros"></ion-back-button>
       <ion-avatar class="avatar-perfil">
-        <img src="assets/images/icon_profile.png" />
+        <img src="assets/images/icon_profile.png" alt="Profile Picture" />
       </ion-avatar>
     </ion-buttons>
 
     <ion-title class="top-title">Digital ALL Media</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button fill="clear" (click)="mostrarPesquisa = !mostrarPesquisa">
-        <ion-icon name="search-outline"></ion-icon>
-      </ion-button>
       <ion-button fill="clear">
         <ion-icon name="settings-outline"></ion-icon>
       </ion-button>
@@ -19,18 +17,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-searchbar
-  *ngIf="mostrarPesquisa"
-  [(ngModel)]="textoPesquisa"
-  (ionInput)="filtrarFicheiros()"
-  placeholder="Search media..."
-  animated
-  showClearButton="always">
-</ion-searchbar>
-
 <ion-content class="ion-padding">
 
-  <!-- Título e botão Cancel alinhados na mesma linha -->
+  <!-- Title + Cancel -->
   <div class="topo-form">
     <h1 class="form-header">Create Album</h1>
     <ion-button size="small" fill="solid" class="cancel-inline" (click)="cancelar()">
@@ -38,38 +27,44 @@
     </ion-button>
   </div>
 
-  <ion-label class="input-label">Album Name</ion-label>
-  <ion-input
-    class="input-livre"
-    placeholder="ex: trip to belgium"
-    [(ngModel)]="albumName">
-  </ion-input>
+  <form [formGroup]="albumForm">
 
-  <ion-label class="input-label">Description</ion-label>
-  <ion-textarea
-    class="input-livre"
-    placeholder="Optional note..."
-    [(ngModel)]="albumDescription">
-  </ion-textarea>
+    <ion-label class="input-label" for="albumName">Album Name</ion-label>
+    <ion-input
+      id="albumName"
+      formControlName="albumName"
+      placeholder="ex: trip to belgium">
+    </ion-input>
+    <ion-text color="danger" *ngIf="albumForm.get('albumName')?.touched && albumForm.get('albumName')?.invalid">
+      Album Name is required.
+    </ion-text>
 
-  <ion-label class="input-label">Music</ion-label>
-  <ion-button expand="block" class="botao-musica" (click)="adicionarMusica()">
-    <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
-    Add Music
-  </ion-button>
+    <ion-label class="input-label" for="albumDescription">Description</ion-label>
+    <ion-textarea
+      id="albumDescription"
+      formControlName="albumDescription"
+      placeholder="Optional note...">
+    </ion-textarea>
 
-  <ion-button expand="block" class="botao-login" (click)="guardarAlbum()">
-    <ion-icon name="folder-outline" slot="start"></ion-icon>
-    Save Album
-  </ion-button>
+    <ion-label class="input-label">Music</ion-label>
+    <ion-button expand="block" class="botao-musica" (click)="adicionarMusica()">
+      <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
+      {{ musicaSelecionada ? musicaSelecionada : 'Add Music' }}
+    </ion-button>
 
-  <!-- Grelha de ficheiros filtrados -->
-  <ion-grid *ngIf="ficheirosFiltrados.length > 0">
+    <ion-button expand="block" class="botao-login" (click)="guardarAlbum()">
+      <ion-icon name="folder-outline" slot="start"></ion-icon>
+      Save Album
+    </ion-button>
+
+  </form>
+
+  <!-- Image Grid -->
+  <ion-grid *ngIf="ficheirosSelecionados.length > 0">
     <ion-row>
-      <ion-col size="4" *ngFor="let item of ficheirosFiltrados">
-        <ion-card>
-          <img [src]="item.thumbnail" />
-          <div class="duracao">{{ item.duracao }}</div>
+      <ion-col size="4" *ngFor="let img of ficheirosSelecionados">
+        <ion-card class="imagem-selecionada">
+          <img [src]="img.caminho" />
         </ion-card>
       </ion-col>
     </ion-row>

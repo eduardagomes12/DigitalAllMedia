@@ -1,48 +1,146 @@
 :host {
-  --background: #f7f7f7;
+  --background: #ffffff;
 }
 
 ion-content {
-  background: var(--background);
+  background-color: #ffffff !important;
+  --background: #ffffff;
 }
 
+/* Header / Top Bar */
 .top-bar {
-  --background: #ffffff;
+  --background: #ffffff !important;
+  background-color: #ffffff !important;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
 }
 
 .top-title {
-  font-weight: 700;
+  font-weight: 400;
   font-size: 18px;
   text-align: center;
+  color: #000;
 }
 
-.segment-wrapper {
+/* Avatar com indicador de status */
+.avatar-perfil {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  margin-left: 4px;
+
+  img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    background-color: #28a745;
+    border: 2px solid white;
+    border-radius: 50%;
+  }
+}
+
+/* Cabeçalho do formulário e Cancelar */
+.topo-form {
   display: flex;
-  justify-content: center;
-  margin: 16px 0;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
-ion-segment {
-  width: 240px; // Ajusta para o tamanho que preferires
-  height: 42px;
-  border-radius: 20px;
-  --background: #eee;
-  padding: 4px;
-}
-
-ion-segment-button {
-  --color: #000;
-  --background-checked: #000;
-  --color-checked: #fff;
-  border-radius: 14px;
+.form-header {
+  font-size: 22px;
   font-weight: 700;
-  font-size: 12px;
+  color: #6b0f0f;
+  margin: 0;
 }
 
+.cancel-inline {
+  --background: #6b0f0f;
+  --color: #fff;
+  --border-radius: 12px;
+  font-weight: 600;
+  text-transform: none;
+  padding: 0 14px;
+  height: 32px;
+  font-size: 14px;
+}
+
+/* Labels e Inputs */
+.input-label {
+  font-weight: bold;
+  margin-top: 18px;
+  display: block;
+  font-size: 14px;
+}
+
+ion-input,
+ion-textarea {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  margin-bottom: 16px;
+  font-size: 14px;
+  height: 45px;
+}
+
+/* Textarea específico */
+ion-textarea {
+  height: auto;
+  min-height: 80px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Validação */
+ion-text[color="danger"] {
+  display: block;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  color: #c62828;
+  font-size: 13px;
+}
+
+/* Botões padrão */
+.botao-musica,
+.botao-login,
+.botao-continuar {
+  --background: #6b0f0f;
+  --color: #fff;
+  --border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: none;
+  margin-top: 16px;
+  margin-bottom: 14px;
+  height: 45px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Mensagem informativa */
+.info-message {
+  font-size: 18px;
+  color: #6b0f0f;
+  text-align: center;
+  margin: 12px 0 20px;
+  padding: 0 16px;
+  font-weight: 700;
+}
+
+/* Cards padrão */
 ion-card {
   position: relative;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 12px;
   margin: 4px;
 
@@ -78,29 +176,38 @@ ion-card {
   }
 }
 
-.footer {
-  padding: 20px;
-  background: #f7f7f7;
+/* Card para botão "+" */
+.card-add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background-color: #ffffff;
+  border: 2px dashed #6b0f0f;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 4px;
 }
 
-.botao-continuar {
-  --background: #6b0f0f;
-  --border-radius: 14px;
-  height: 45px;
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: none;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.icone-add {
+  font-size: 2em;
+  color: #6b0f0f;
+  font-weight: bold;
 }
-.avatar-perfil {
-  width: 36px;
-  height: 36px;
-  margin-left: 4px;
+
+/* Imagens selecionadas */
+.imagem-selecionada {
+  margin-top: 12px;
 
   img {
-    border-radius: 50%;
-    object-fit: cover;
     width: 100%;
-    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
   }
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  background: #ffffff;
 }

@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\DigitalALLMedia.Api.props" />
-</Project>

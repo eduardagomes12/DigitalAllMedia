@@ -1,74 +1,129 @@
+/* Importar a fonte Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
+/* Fundo da página */
+.pagina-tabs {
+  --background: #f0f0f0;
+  padding-bottom: 100px;
+}
+
+/* Cabeçalho limpo */
+ion-toolbar {
+  --background: #ffffff;
+  --color: #000000;
+  box-shadow: none;
+}
+
+/* Card principal grande */
 .featured-card {
   position: relative;
-  img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 12px;
-  }
-  .play-button {
-    position: absolute;
-    top: 45%;
-    left: 45%;
-    color: white;
-  }
-  .card-text {
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-    color: white;
-  }
+  margin: 20px 16px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  background-color: #ffffff;
 }
 
-.featured-card.small {
-  margin-top: 16px;
-  img {
-    height: 140px;
-  }
+.featured-card img {
+  width: 100%;
+  height: 400px; /* Esticado */
+  object-fit: cover;
+  border-radius: 28px;
 }
 
-.custom-tab-bar {
-  --background: transparent;
-  border: none;
-  justify-content: space-around;
-  padding-bottom: 8px;
+/* Card secundário também esticado */
+.featured-card.small img {
+  height: 400px;
+  border-radius: 24px;
+}
 
-  ion-tab-button {
-    background: #e2e2e2;
-    border-radius: 50%;
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .center-tab {
-   background: #8A1E1E;
-    ion-icon {
-      color: white;
-      font-size: 30px;
-    }
-  }
-  .popup-menu {
+/* Botão invisível que cobre toda a imagem com o ícone centrado */
+.full-card-button {
   position: absolute;
-  bottom: 70px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  color: white;
+  font-size: 60px;
+  --background-activated-opacity: 0; // sem flash ao clicar
+}
+
+.full-card-button ion-icon {
+  font-size: 58px;
+  color: white;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Texto sobre a imagem */
+.card-text {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.card-text h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  margin: 0;
+}
+
+.card-text p {
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+/* Floating bar personalizada */
+.floating-bar {
+  position: fixed;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  width: 220px;
-  background-color: #8A1E1E;
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 6px 18px;
+  border-radius: 40px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
   z-index: 999;
-
-  ion-item {
-    --background: transparent;
-    color: white;
-
-    ion-icon {
-      color: white;
-    }
-  }
+  width: auto;
 }
 
+.floating-bar ion-button {
+  --color: #6b0f0f;
+  --background: transparent;
+  font-size: 16px;
+}
+
+/* Botão do meio mais compacto */
+.floating-bar .main-button {
+  --background: #6b0f0f;
+  --color: white;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Popup menu */
+.popup-menu {
+  position: absolute;
+  bottom: 100px;
+  left: 16px;
+  right: 16px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
