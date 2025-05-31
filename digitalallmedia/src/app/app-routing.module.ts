@@ -73,7 +73,11 @@ const routes: Routes = [
   {
     path: 'escolher-musica',
     loadChildren: () => import('./escolher-musica/escolher-musica.module').then(m => m.EscolherMusicaPageModule)
+  },  {
+    path: 'select-print',
+    loadChildren: () => import('./select-print/select-print.module').then( m => m.SelectPrintPageModule)
   }
+
 ];
 
 @NgModule({

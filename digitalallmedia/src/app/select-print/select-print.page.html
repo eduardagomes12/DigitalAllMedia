@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" routerLink="/profile" class="avatar-button">
+        <ion-avatar class="avatar-container">
+          <img src="assets/images/icon_profile.png" />
+          <span class="online-indicator"></span>
+        </ion-avatar>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Digital ALL Media</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pagina ion-padding">
+  <div class="conteudo">
+    <div class="top-bar">
+      <h1 class="page-title">Create Order</h1>
+      <ion-button fill="outline" size="small" class="cancel-button" routerLink="/tabs">
+        CANCEL
+      </ion-button>
+    </div>
+
+    <div class="stepper">
+      <div class="line"></div>
+
+      <div class="step active">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">
+            1. Add File
+            <ion-button class="edit-btn" fill="clear" size="small" routerLink="/adicionar-arquivo">Edit</ion-button>
+          </div>
+          <div class="subtitle">
+            {{ selectedFotos.length }} photos, {{ selectedAlbuns.length }} albums
+          </div>
+          <div class="selected-items">
+            <img *ngFor="let foto of selectedFotos" [src]="foto" class="thumb" />
+            <ion-chip *ngFor="let album of selectedAlbuns">{{ album.name }}</ion-chip>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">2. Print Type</div>
+          <div class="subtitle">e.g. PhotoBook</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">3. Delivery Details</div>
+          <div class="subtitle">e.g. Name, Address, Instructions</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">4. Confirm Order</div>
+          <div class="subtitle">e.g. Summary & Payment Method</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-button expand="block" class="add-button">
+    <ion-icon name="add-circle" slot="start"></ion-icon>
+    Add
+  </ion-button>
+</ion-content>
