@@ -1,147 +1,176 @@
-:host {
-  --background: #ffffff;
+.pagina {
+  --background: #f6f6f6;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-ion-content {
-  background-color: #ffffff !important;
-  --background: #ffffff;
-}
-
-/* Header */
 .top-bar {
-  --background: #ffffff !important;
-  background-color: #ffffff !important;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.top-title {
-  font-weight: 400;
-  font-size: 18px;
-  text-align: center;
+.form-title {
+  font-size: 33px;
+  font-weight: bold;
+  color: #6b0f0f;
+  margin: 20px 0 20px 20px;
+  margin-left: -10px;
+}
+
+.cancelar-button-inline {
+  --background: #6b0f0f;
+  --color: white;
+  font-weight: bold;
+  text-transform: none;
+  font-size: 15px;
+  height: 40px;
+  padding: 10 20px;
+  border-radius: 999px;
+  border: none;
+  box-shadow: none; /* ❌ remove o brilho/efeito oval */
+  min-width: 100px;
+}
+
+.formulario {
+  padding-bottom: 100px;
+}
+
+/* Etiquetas */
+.form-label {
+  font-weight: 550;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-size: 20px;
   color: #000;
 }
 
-/* Avatar com indicador */
-.avatar-perfil {
+/* Espaçamento entre as duas primeiras labels e os inputs */
+.formulario ion-label:nth-of-type(1) + ion-input.custom-input,
+.formulario ion-label:nth-of-type(2) + ion-textarea.custom-input {
+  margin-top: 20px;
+}
+
+.custom-input {
+  --background: #ffffff;
+  --border-radius: 16px;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  margin-bottom: 24px;
+  height: 56px;
+  box-sizing: border-box;
+}
+
+ion-textarea.custom-input {
+  min-height: 72px;
+}
+
+/* Botão de música */
+.musica-button,
+.guardar-button {
+  --background: #6b0f0f;
+  --color: white;
+  font-weight: 600;
+  border-radius: 28px;
+  height: 52px;
+  font-size: 16px;
+  text-transform: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Botão de música com espaçamento para baixo */
+.musica-button {
+  margin-bottom: 32px;
+}
+
+/* Label fotos com mais margem */
+.label-fotos {
+  margin-top: 32px;
+  margin-bottom: 12px;
+  font-weight: 550;
+  font-size: 20px;
+  color: #000;
+}
+
+/* Miniaturas das fotos selecionadas */
+.selected-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Botões fixos */
+.botoes-fixos {
+  position: fixed;
+  bottom: 24px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Avatar */
+.avatar-container {
   position: relative;
   width: 36px;
   height: 36px;
-  margin-left: 4px;
-
-  img {
-    border-radius: 50%;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
-    width: 10px;
-    height: 10px;
-    background-color: #28a745;
-    border: 2px solid white;
-    border-radius: 50%;
-  }
 }
 
-/* Título + Cancel */
-.topo-form {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
+.avatar-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
-.form-header {
-  font-size: 22px;
-  font-weight: 700;
-  color: #6b0f0f;
-  margin: 0;
+.online-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #3CC13B;
+  border: 2px solid white;
+  border-radius: 50%;
 }
 
-.cancel-inline {
-  --background: #6b0f0f;
-  --color: #fff;
-  --border-radius: 12px;
-  font-weight: 600;
-  text-transform: none;
-  padding: 0 14px;
-  height: 32px;
-  font-size: 14px;
+.avatar-button {
+  padding: 0;
+  --background: transparent;
+  --box-shadow: none;
 }
 
-/* Labels */
-.input-label {
-  font-weight: bold;
-  margin-top: 18px;
-  display: block;
-  font-size: 14px;
+/* Botões com bordas arredondadas */
+ion-button.guardar-button::part(native),
+ion-button.musica-button::part(native),
+ion-button.cancelar-button-inline::part(native) {
+  border-radius: 999px !important;
 }
 
-/* Inputs e Textareas com caixa */
-ion-input,
-ion-textarea {
-  --padding-start: 12px;
-  --padding-end: 12px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  padding: 10px;
-  margin-bottom: 20px;
-}
-
-ion-textarea {
-  height: auto;
-  min-height: 100px;
-}
-
-/* Validação */
-ion-text[color="danger"] {
-  display: block;
-  margin-top: 6px;
-  margin-bottom: 12px;
-  color: #c62828;
-  font-size: 13px;
-}
-
-/* Botões */
-.botao-musica {
-  --background: #6b0f0f;
-  --color: #fff;
-  --border-radius: 14px;
+/* Input visual */
+ion-input.custom-input::part(native),
+ion-textarea.custom-input::part(native) {
+  border-radius: 16px !important;
   font-size: 16px;
-  font-weight: 600;
-  text-transform: none;
-  margin-top: 16px;
-  margin-bottom: 20px;
-  height: 45px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.botao-login {
-  --background: #6b0f0f;
-  --color: #fff;
-  --border-radius: 14px;
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: none;
-  margin-bottom: 24px;
-  height: 45px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
 
-/* Grelha de imagens selecionadas */
-.imagem-selecionada {
-  margin-top: 12px;
-
-  img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  }
-}

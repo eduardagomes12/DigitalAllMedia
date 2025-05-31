@@ -27,15 +27,17 @@ export class CriarAlbumPage implements OnInit {
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state;
 
-    if (!state) return;
-
-    if ((state as any)['ficheiros']?.length > 0) {
-      this.ficheirosSelecionados = (state as any)['ficheiros'];
+    // ✅ Safe and clean access to "ficheiros"
+    if (state && Array.isArray(state['ficheiros']) && state['ficheiros'].length > 0) {
+      this.ficheirosSelecionados = state['ficheiros'];
       this.ficheirosFiltrados = [...this.ficheirosSelecionados];
     }
 
-    if ((state as any)['musicaSelecionada']) {
-      this.musicaSelecionada = (state as any)['musicaSelecionada'];
+    // ✅ Safe and correct access to music from localStorage
+    const musica = localStorage.getItem('musicaSelecionada');
+    if (musica) {
+      const musicaObj = JSON.parse(musica);
+      this.musicaSelecionada = musicaObj?.titulo || '';
     }
   }
 
@@ -66,7 +68,7 @@ export class CriarAlbumPage implements OnInit {
 
   filtrarFicheiros() {
     const termo = this.textoPesquisa.toLowerCase();
-    this.ficheirosFiltrados = this.ficheirosSelecionados.filter(f =>
+    this.ficheirosFiltrados = this.ficheirosSelecionados.filter((f: any) =>
       (f.nome || '').toLowerCase().includes(termo)
     );
   }
