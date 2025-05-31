@@ -1,16 +1,29 @@
-.top-bar {
+:host {
   --background: #ffffff;
+}
+
+ion-content {
+  background-color: #ffffff !important;
+  --background: #ffffff;
+}
+
+/* Header */
+.top-bar {
+  --background: #ffffff !important;
+  background-color: #ffffff !important;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
 }
 
 .top-title {
-  font-weight: 700;
+  font-weight: 400;
   font-size: 18px;
   text-align: center;
-    color: #000000;
+  color: #000;
 }
 
+/* Avatar com indicador */
 .avatar-perfil {
+  position: relative;
   width: 36px;
   height: 36px;
   margin-left: 4px;
@@ -21,85 +34,30 @@
     width: 100%;
     height: 100%;
   }
-}
 
-.form-header {
-  font-size: 24px;
-  font-weight: 700;
-  color: #6b0f0f;
-  margin-bottom: 30px;
-  margin-top: 20px;
-}
-
-.input-label {
-  display: block;
-  font-weight: 750;
-  color: #000000;
-  margin-top: 16px;
-  margin-bottom: 6px;
-  font-size: 14px;
-}
-
-.input-livre {
-  border: 1px solid #ccc;
-  border-radius: 14px;
-  padding: 14px;
-  background: #fff;
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-
-.botao-musica {
-  --background: #6b0f0f;
-  --border-radius: 14px;
-  height: 48px;
-  font-weight: 600;
-  font-size: 16px;
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-
-  .musica-exemplo {
-    font-size: 11px;
-    color: #f7f7f7;
-    margin-top: 2px;
-  }
-}
-
-.botao-login {
-  --background: #6b0f0f;
-  --border-radius: 14px;
-  height: 48px;
-  font-weight: 600;
-  font-size: 16px;
-  margin-top: 30px;
-}
-ion-card {
-  position: relative;
-  img {
-    width: 100%;
-    border-radius: 10px;
-  }
-  .duracao {
+  &::after {
+    content: '';
     position: absolute;
-    bottom: 6px;
-    left: 6px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 6px;
+    bottom: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    background-color: #28a745;
+    border: 2px solid white;
+    border-radius: 50%;
   }
 }
+
+/* Título + Cancel */
 .topo-form {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
 .form-header {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: #6b0f0f;
   margin: 0;
@@ -107,12 +65,83 @@ ion-card {
 
 .cancel-inline {
   --background: #6b0f0f;
-  --color: white;
+  --color: #fff;
   --border-radius: 12px;
-  height: 32px;
-  padding: 0 16px;
-  font-size: 13px;
   font-weight: 600;
   text-transform: none;
+  padding: 0 14px;
+  height: 32px;
+  font-size: 14px;
 }
 
+/* Labels */
+.input-label {
+  font-weight: bold;
+  margin-top: 18px;
+  display: block;
+  font-size: 14px;
+}
+
+/* Inputs e Textareas com caixa */
+ion-input,
+ion-textarea {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+ion-textarea {
+  height: auto;
+  min-height: 100px;
+}
+
+/* Validação */
+ion-text[color="danger"] {
+  display: block;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  color: #c62828;
+  font-size: 13px;
+}
+
+/* Botões */
+.botao-musica {
+  --background: #6b0f0f;
+  --color: #fff;
+  --border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: none;
+  margin-top: 16px;
+  margin-bottom: 20px;
+  height: 45px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.botao-login {
+  --background: #6b0f0f;
+  --color: #fff;
+  --border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: none;
+  margin-bottom: 24px;
+  height: 45px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Grelha de imagens selecionadas */
+.imagem-selecionada {
+  margin-top: 12px;
+
+  img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  }
+}

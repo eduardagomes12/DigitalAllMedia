@@ -1,56 +1,66 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
-  selector: 'app-selecionar-ficheiros',
+  selector: 'app-select-files',
   templateUrl: './selecionar-ficheiros.page.html',
   styleUrls: ['./selecionar-ficheiros.page.scss'],
-  standalone:false,
+  standalone: false,
 })
 export class SelecionarFicheirosPage implements OnInit {
 
-  segmento = 'recentes';
-  mostrarPesquisa = false;
-  textoPesquisa = '';
-
-  ficheirosRecentes = [
-    { thumbnail: 'assets/images/foto1.jpg', duracao: '00:50', selecionado: false, nome: 'Ferrari' },
-    { thumbnail: 'assets/images/foto2.jpg', duracao: '00:59', selecionado: false, nome: 'Hotel' },
-    { thumbnail: 'assets/images/foto3.jpg', duracao: '01:10', selecionado: false, nome: 'Neon City' },
-    { thumbnail: 'assets/images/foto4.jpg', selecionado: false, nome: 'Aquarium' },
-    { thumbnail: 'assets/images/foto5.jpg', selecionado: false, nome: 'Market' },
-    { thumbnail: 'assets/images/foto6.jpg', selecionado: false, nome: 'Exhibition' },
+  fotosPadrao = [
+    { tipo: 'adicionar' }, // botão "+"
+    { caminho: 'assets/images/foto1.jpg', selecionado: false },
+    { caminho: 'assets/images/foto2.jpg', selecionado: false },
+    { caminho: 'assets/images/foto3.jpg', selecionado: false },
+    { caminho: 'assets/images/foto4.jpg', selecionado: false },
+    { caminho: 'assets/images/foto5.jpg', selecionado: false },
+    { caminho: 'assets/images/foto6.jpg', selecionado: false },
+    { caminho: 'assets/images/foto7.jpg', selecionado: false },
+    { caminho: 'assets/images/foto8.jpg', selecionado: false },
   ];
-
-  ficheirosTodos: any[] = []; // todos os ficheiros da aba ativa
-  ficheiros: any[] = [];      // ficheiros filtrados para mostrar
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.atualizarFicheiros();
+  ngOnInit() {}
+
+  async abrirSeletorDeImagens() {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Photos
+      });
+
+      if (image?.dataUrl) {
+        const novaImagem = {
+          caminho: image.dataUrl,
+          selecionado: false
+        };
+
+        this.fotosPadrao.push(novaImagem);
+      } else {
+        console.warn('Nenhuma imagem foi selecionada.');
+      }
+    } catch (error) {
+      console.error('Erro ao selecionar imagem:', error);
+    }
   }
 
-  atualizarFicheiros() {
-    this.ficheirosTodos = this.segmento === 'recentes' ? this.ficheirosRecentes : [];
-    this.filtrarFicheiros();
+  toggleSelecao(index: number) {
+    const foto = this.fotosPadrao[index];
+    if (!foto.tipo) {
+      foto.selecionado = !foto.selecionado;
+    }
   }
 
-  filtrarFicheiros() {
-    const termo = this.textoPesquisa.toLowerCase();
-    this.ficheiros = this.ficheirosTodos.filter(f =>
-      f.nome.toLowerCase().includes(termo)
-    );
-  }
-
-  alternarSelecao(index: number) {
-    this.ficheiros[index].selecionado = !this.ficheiros[index].selecionado;
-  }
-
-  continuar() {
-    const selecionados = this.ficheiros.filter(f => f.selecionado);
+  confirmarSelecao() {
+    const selecionadas = this.fotosPadrao.filter(f => f.selecionado && !f.tipo);
     this.router.navigate(['/criar-album'], {
-      state: { ficheiros: selecionados }
+      state: { ficheiros: selecionadas }
     });
   }
 }

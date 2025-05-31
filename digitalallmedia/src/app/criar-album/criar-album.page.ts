@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-criar-album',
@@ -7,47 +8,60 @@ import { Router } from '@angular/router';
   styleUrls: ['./criar-album.page.scss'],
   standalone: false,
 })
-export class CriarAlbumPage {
-  albumName: string = '';
-  albumDescription: string = '';
+export class CriarAlbumPage implements OnInit {
+  albumForm: FormGroup;
   musicaSelecionada: string = '';
   mostrarPesquisa = false;
   textoPesquisa = '';
-
   ficheirosSelecionados: any[] = [];
   ficheirosFiltrados: any[] = [];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private fb: FormBuilder) {
+    this.albumForm = this.fb.group({
+      albumName: ['', Validators.required],
+      albumDescription: ['']
+    });
+  }
+
+  ngOnInit(): void {
     const nav = this.router.getCurrentNavigation();
-    if (nav?.extras?.state?.['ficheiros']) {
-      this.ficheirosSelecionados = nav.extras.state['ficheiros'];
+    const state = nav?.extras?.state;
+
+    if (!state) return;
+
+    if ((state as any)['ficheiros']?.length > 0) {
+      this.ficheirosSelecionados = (state as any)['ficheiros'];
       this.ficheirosFiltrados = [...this.ficheirosSelecionados];
+    }
+
+    if ((state as any)['musicaSelecionada']) {
+      this.musicaSelecionada = (state as any)['musicaSelecionada'];
     }
   }
 
   adicionarMusica() {
-    console.log('Abrir modal ou página de seleção de música...');
+    this.router.navigate(['/escolher-musica']);
   }
 
   guardarAlbum() {
-    if (!this.albumName) {
-      alert('Please enter an album name.');
+    if (this.albumForm.invalid) {
+      this.albumForm.markAllAsTouched();
       return;
     }
 
-    console.log('Álbum criado:', {
-      nome: this.albumName,
-      descricao: this.albumDescription,
-      musica: this.musicaSelecionada,
-      ficheiros: this.ficheirosSelecionados
+    console.log('Album created:', {
+      name: this.albumForm.value.albumName,
+      description: this.albumForm.value.albumDescription,
+      music: this.musicaSelecionada,
+      files: this.ficheirosSelecionados
     });
 
     alert('Album created successfully!');
-    this.router.navigate(['/']);
+    this.router.navigate(['/tabs']);
   }
 
   cancelar() {
-    this.router.navigate(['/selecionar-ficheiros']);
+    this.router.navigate(['/tabs']);
   }
 
   filtrarFicheiros() {
