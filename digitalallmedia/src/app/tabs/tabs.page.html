@@ -12,12 +12,18 @@
     <ion-title class="ion-text-center">Digital ALL Media</ion-title>
 
     <ion-buttons slot="end">
+      <!-- Lupa primeiro -->
+      <ion-button>
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      <!-- Depois o ícone de definições -->
       <ion-button>
         <ion-icon name="settings-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content class="pagina-home" fullscreen>
 
@@ -53,7 +59,7 @@
 
   <!-- MENU POP-UP -->
   <ion-card *ngIf="mostrarMenu" class="popup-menu">
-    <ion-item button routerLink="/criar-album" (click)="toggleMenu()" lines="none">
+    <ion-item button routerLink="/selecionar-ficheiros" (click)="toggleMenu()" lines="none">
       <ion-icon slot="start" name="folder-open"></ion-icon>
       <ion-label>Criar Álbum</ion-label>
     </ion-item>

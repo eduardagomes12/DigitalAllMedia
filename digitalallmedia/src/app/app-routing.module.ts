@@ -73,9 +73,14 @@ const routes: Routes = [
   {
     path: 'escolher-musica',
     loadChildren: () => import('./escolher-musica/escolher-musica.module').then(m => m.EscolherMusicaPageModule)
-  },  {
+  },
+  {
     path: 'select-print',
     loadChildren: () => import('./select-print/select-print.module').then( m => m.SelectPrintPageModule)
+  },
+  {
+  path: 'album-preview',
+  loadChildren: () => import('./album-preview/album-preview.module').then(m => m.AlbumPreviewPageModule)
   }
 
 ];

@@ -26,18 +26,17 @@ ion-toolbar {
 
 .featured-card img {
   width: 100%;
-  height: 400px; /* Esticado */
+  height: 500px;
   object-fit: cover;
   border-radius: 28px;
 }
 
-/* Card secundário também esticado */
 .featured-card.small img {
-  height: 400px;
+  height: 500px;
   border-radius: 24px;
 }
 
-/* Botão invisível que cobre toda a imagem com o ícone centrado */
+/* Botão invisível sobre imagem */
 .full-card-button {
   position: absolute;
   top: 0;
@@ -51,7 +50,7 @@ ion-toolbar {
   background: transparent;
   color: white;
   font-size: 60px;
-  --background-activated-opacity: 0; // sem flash ao clicar
+  --background-activated-opacity: 0;
 }
 
 .full-card-button ion-icon {
@@ -60,8 +59,7 @@ ion-toolbar {
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
-
-/* Texto sobre a imagem */
+/* Texto sobre imagem */
 .card-text {
   position: absolute;
   bottom: 20px;
@@ -82,52 +80,83 @@ ion-toolbar {
   margin-top: 4px;
 }
 
-/* Floating bar personalizada */
+/* BARRA FLUTUANTE COM EFEITO FOSCO */
 .floating-bar {
   position: fixed;
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 6px 18px;
   border-radius: 40px;
   display: flex;
-  gap: 16px;
+  gap: 28px;
   align-items: center;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
   z-index: 999;
-  width: auto;
+  width: 300px;
 }
 
+/* Botões laterais da barra flutuante */
 .floating-bar ion-button {
-  --color: #6b0f0f;
-  --background: transparent;
-  font-size: 16px;
-}
-
-/* Botão do meio mais compacto */
-.floating-bar .main-button {
-  --background: #6b0f0f;
   --color: white;
-  border-radius: 50%;
-  width: 42px;
-  height: 42px;
+  --background: transparent;
   font-size: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Popup menu */
+.floating-bar .main-button::part(native) {
+  border-radius: 50% !important;
+  width: 64px !important;
+  height: 64px !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: #6b0f0f !important;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.floating-bar .main-button ion-icon {
+  font-size: 32px;
+  color: white;
+}
+
+
+/* POPUP MENU TRANSLÚCIDO BORDÔ */
 .popup-menu {
-  position: absolute;
+  position: fixed;
   bottom: 100px;
-  left: 16px;
-  right: 16px;
-  background-color: white;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(107, 15, 15, 0.9); /* bordô com transparência */
   border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
   z-index: 1000;
+  width: 90%;
+  max-width: 360px;
+  color: white;
+  padding: 8px 0;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
+/* Estilo interno dos itens do popup */
+.popup-menu ion-item {
+  --background: transparent !important;
+  --ion-item-background: transparent !important;
+  --color: white !important;
+  color: white !important;
+}
+
+/* Ícones e texto */
+.popup-menu ion-icon,
+.popup-menu ion-label {
+  color: white !important;
+}
+
+/* Avatar */
 .avatar-container {
   position: relative;
   width: 36px;
@@ -155,11 +184,5 @@ ion-toolbar {
   padding: 0;
   --background: transparent;
   --box-shadow: none;
-}
-
-ion-toolbar {
-  --background: #ffffff;
-  --color: #000000;
-  box-shadow: none;
 }
 

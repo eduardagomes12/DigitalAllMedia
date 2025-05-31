@@ -12,4 +12,6 @@ export class TabsPage {
   toggleMenu() {
     this.mostrarMenu = !this.mostrarMenu;
   }
+
+  
 }
