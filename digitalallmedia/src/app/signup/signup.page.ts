@@ -49,6 +49,7 @@ export class SignupPage implements OnInit {
     this.erro = '';
 
     this.authService.register({
+      nome: this.nome,
       email: this.email,
       password: this.password,
     }).subscribe({
