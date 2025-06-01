@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DeliveryDetailsPage } from './delivery-details.page';
 
+// Define the route configuration for the DeliveryDetailsPage
 const routes: Routes = [
   {
     path: '',
