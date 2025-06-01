@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "titulo": "Bélgica",
+    "tags": ["viagem", "europa"],
+    "data": "2021-02-01",
+    "categoria": "Travel",
+    "ficheiro": "assets/images/IMG_3900.jpg"
+  },
+  {
+    "id": 2,
+    "titulo": "México",
+    "tags": ["cultura", "américa", "viagem"],
+    "data": "2022-03-15",
+    "categoria": "Travel",
+    "ficheiro": "assets/images/IMG_3958.jpg"
+  },
+  {
+    "id": 3,
+    "titulo": "Porto",
+    "tags": ["portugal", "cidade", "costa"],
+    "data": "2024-01-20",
+    "categoria": "City",
+    "ficheiro": "assets/images/IMG_6359.jpg"
+  },
+  {
+    "id": 4,
+    "titulo": "Museu Carros",
+    "tags": ["museu", "carros", "cultura"],
+    "data": "2024-05-20",
+    "categoria": "Places",
+    "ficheiro": "assets/images/foto6.jpg"
+  },
+  {
+    "id": 5,
+    "titulo": "Marrocos",
+    "tags": ["deserto", "viagem"],
+    "data": "2017-06-19",
+    "categoria": "City",
+    "ficheiro": "assets/images/foto9.jpg"
+  },
+   {
+    "id": 6,
+    "titulo": "Parques Disney",
+    "tags": ["magia", "viagem"],
+    "data": "2019-03-11",
+    "categoria": "City",
+    "ficheiro": "assets/images/foto8.jpg"
+  }
+
+]
