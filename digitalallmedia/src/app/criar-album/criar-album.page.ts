@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { StorageService } from 'src/services/storage.service';
+
 
 @Component({
   selector: 'app-criar-album',
@@ -16,7 +18,7 @@ export class CriarAlbumPage implements OnInit {
   ficheirosSelecionados: any[] = [];
   ficheirosFiltrados: any[] = [];
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(private router: Router, private fb: FormBuilder, private storageService: StorageService) {
     this.albumForm = this.fb.group({
       albumName: ['', Validators.required],
       albumDescription: ['']
@@ -45,22 +47,28 @@ export class CriarAlbumPage implements OnInit {
     this.router.navigate(['/escolher-musica']);
   }
 
-  guardarAlbum() {
-    if (this.albumForm.invalid) {
-      this.albumForm.markAllAsTouched();
-      return;
-    }
-
-    console.log('Album created:', {
-      name: this.albumForm.value.albumName,
-      description: this.albumForm.value.albumDescription,
-      music: this.musicaSelecionada,
-      files: this.ficheirosSelecionados
-    });
-
-    alert('Album created successfully!');
-    this.router.navigate(['/tabs']);
+  async guardarAlbum() {
+  if (this.albumForm.invalid) {
+    this.albumForm.markAllAsTouched();
+    return;
   }
+
+  const novoAlbum = {
+    titulo: this.albumForm.value.albumName,
+    descricao: this.albumForm.value.albumDescription,
+    tags: [this.albumForm.value.albumName.toLowerCase()],
+    data: new Date().toISOString().split('T')[0],
+    local: 'Desconhecido',
+    tipo: 'album',
+    ficheiro: 'assets/default-album.jpg' 
+  };
+
+  await this.storageService.guardarAlbum(novoAlbum);
+
+  alert('Álbum criado com sucesso!');
+  this.router.navigate(['/tabs']);
+}
+
 
   cancelar() {
     this.router.navigate(['/tabs']);
