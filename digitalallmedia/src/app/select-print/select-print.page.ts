@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
 
 interface Album {
   name: string;
@@ -17,12 +18,12 @@ export class SelectPrintPage {
   selectedFotos: string[] = [];
   selectedAlbuns: Album[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private storage: Storage) {}
 
-  ionViewWillEnter() {
-    const state = history.state;
-    this.selectedFotos = state?.fotos || [];
-    this.selectedAlbuns = state?.albuns || [];
+  async ionViewWillEnter() {
+    await this.storage.create();
+    this.selectedFotos = await this.storage.get('selectedFotos') || [];
+    this.selectedAlbuns = await this.storage.get('selectedAlbuns') || [];
   }
 
   goToProfile() {

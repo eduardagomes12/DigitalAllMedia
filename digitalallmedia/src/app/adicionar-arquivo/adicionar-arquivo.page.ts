@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { Storage } from '@ionic/storage-angular';
 
 interface Album {
   name: string;
@@ -54,7 +54,8 @@ export class AdicionarArquivoPage implements AfterViewInit {
   ];
 
   selectedAlbumIndexes: number[] = [];
-  constructor(private router: Router) {}
+
+  constructor(private router: Router, private storage: Storage) {}
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -103,58 +104,54 @@ export class AdicionarArquivoPage implements AfterViewInit {
   }
 
   onAlbumPdfSelected(event: any) {
-  const file = event.target.files[0];
-  if (file && file.type === 'application/pdf') {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const albumName = file.name.replace('.pdf', '');
-      const coverInput = document.createElement('input');
-      coverInput.type = 'file';
-      coverInput.accept = 'image/*';
+    const file = event.target.files[0];
+    if (file && file.type === 'application/pdf') {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const albumName = file.name.replace('.pdf', '');
+        const coverInput = document.createElement('input');
+        coverInput.type = 'file';
+        coverInput.accept = 'image/*';
 
-      coverInput.onchange = (e: any) => {
-        const imageFile = e.target.files[0];
-        if (imageFile) {
-          const imageReader = new FileReader();
-          imageReader.onload = () => {
-            const cover = imageReader.result as string;
+        coverInput.onchange = (e: any) => {
+          const imageFile = e.target.files[0];
+          if (imageFile) {
+            const imageReader = new FileReader();
+            imageReader.onload = () => {
+              const cover = imageReader.result as string;
+              this.albums.push({
+                name: albumName,
+                cover,
+                images: []
+              });
+            };
+            imageReader.readAsDataURL(imageFile);
+          } else {
             this.albums.push({
               name: albumName,
-              cover,
+              cover: 'assets/images/default_album.png',
               images: []
             });
-          };
-          imageReader.readAsDataURL(imageFile);
-        } else {
-          this.albums.push({
-            name: albumName,
-            cover: 'assets/images/default_album.png',
-            images: []
-          });
-        }
+          }
+        };
+
+        coverInput.click();
       };
 
-      coverInput.click();
-    };
+      reader.readAsDataURL(file);
+    }
 
-    reader.readAsDataURL(file);
+    event.target.value = '';
   }
 
-  // 💡 Permite repetir a seleção de PDF
-  event.target.value = '';
-}
+  async adicionarSelecionadas() {
+    const imagensSelecionadas = this.selectedIndexes.map(i => this.imagens[i]);
+    const albunsSelecionados = this.selectedAlbumIndexes.map(i => this.albums[i]);
 
+    await this.storage.create();
+    await this.storage.set('selectedFotos', imagensSelecionadas);
+    await this.storage.set('selectedAlbuns', albunsSelecionados);
 
-  adicionarSelecionadas() {
-  const imagensSelecionadas = this.selectedIndexes.map(i => this.imagens[i]);
-  const albunsSelecionados = this.selectedAlbumIndexes.map(i => this.albums[i]);
-
-  this.router.navigate(['/select-print'], {
-    state: {
-      fotos: imagensSelecionadas,
-      albuns: albunsSelecionados
-    }
-  });
-}
-
+    this.router.navigate(['/select-print']);
+  }
 }

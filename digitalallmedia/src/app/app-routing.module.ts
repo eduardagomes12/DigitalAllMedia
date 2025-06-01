@@ -81,7 +81,11 @@ const routes: Routes = [
   {
   path: 'album-preview',
   loadChildren: () => import('./album-preview/album-preview.module').then(m => m.AlbumPreviewPageModule)
+  },  {
+    path: 'select-print-type',
+    loadChildren: () => import('./select-print-type/select-print-type.module').then( m => m.SelectPrintTypePageModule)
   }
+
 
 ];
 

@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" routerLink="/select-print">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center step-title">
+      <span class="step-number">Step 2:</span> Select Print Type
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pagina ion-padding">
+  <div class="conteudo">
+    <!-- Print options per photo -->
+    <div class="section" *ngFor="let photo of selectedFotos; let i = index">
+      <div class="media-title">
+        <img [src]="photo" class="preview-thumb" />
+        <span>Choose print type for photo {{ i + 1 }}</span>
+      </div>
+      <ion-list>
+        <ion-radio-group [(ngModel)]="selectedPhotoOptions[i]">
+          <ion-item *ngFor="let option of printOptionsPhotos">
+            <ion-label>{{ option }}</ion-label>
+            <ion-radio slot="end" [value]="option"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </div>
+
+    <!-- Print options per album -->
+    <div class="section" *ngFor="let album of selectedAlbuns; let j = index">
+      <div class="media-title">
+        <img [src]="album.cover" class="preview-thumb" />
+        <span>Choose print type for album: {{ album.name }}</span>
+      </div>
+      <ion-list>
+        <ion-radio-group [(ngModel)]="selectedAlbumOptions[j]">
+          <ion-item *ngFor="let option of printOptionsAlbums">
+            <ion-label>{{ option }}</ion-label>
+            <ion-radio slot="end" [value]="option"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </div>
+  </div>
+
+  <ion-button expand="block" class="add-button" (click)="continuar()">
+    <ion-icon name="add-circle" slot="start"></ion-icon>
+    Continue
+  </ion-button>
+</ion-content>
