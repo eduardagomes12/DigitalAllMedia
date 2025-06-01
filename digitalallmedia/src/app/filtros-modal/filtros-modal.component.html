@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Filters</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="fechar()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-content">
+
+  <ion-list lines="inset">
+
+    <ion-item>
+      <ion-label position="floating">Tags (keywords)</ion-label>
+      <ion-input [(ngModel)]="tags"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-select [(ngModel)]="categoria" interface="popover">
+        <ion-select-option value="">Any</ion-select-option>
+        <ion-select-option value="Travel">Travel</ion-select-option>
+        <ion-select-option value="City">City</ion-select-option>
+        <ion-select-option value="Event">Event</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime
+        presentation="month-year"
+        [(ngModel)]="data">
+      </ion-datetime>
+    </ion-item>
+
+  </ion-list>
+
+  <div class="modal-actions">
+    <ion-button expand="block" class="clear-button" fill="outline" (click)="limpar()">Clear Filters</ion-button>
+    <ion-button expand="block" class="apply-button" (click)="aplicar()">Apply Filters</ion-button>
+  </div>
+
+</ion-content>

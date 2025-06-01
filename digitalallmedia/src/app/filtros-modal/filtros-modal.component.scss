@@ -1,0 +1,26 @@
+.modal-content {
+  padding: 16px;
+}
+
+.modal-actions {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.apply-button {
+  --background: #6b0f0f;
+  --color: #fff;
+  --border-radius: 14px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.clear-button {
+  --color: #6b0f0f;
+  --border-radius: 14px;
+  font-weight: 600;
+  text-transform: none;
+  border: 1px solid #6b0f0f;
+}
