@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-toolbar class="top-bar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs"></ion-back-button>
+      <ion-avatar class="avatar-perfil">
+        <img src="assets/images/icon_profile.png" alt="Profile Picture" />
+      </ion-avatar>
+    </ion-buttons>
+
+    <ion-title class="top-title">Digital ALL Media</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pagina">
+  <div class="conteudo">
+
+    <!-- Searchbar + Filter Icon -->
+    <div class="searchbar-row">
+      <ion-searchbar
+        [(ngModel)]="query"
+        (ionInput)="filtrarSugestoes()"
+        (ionClear)="mostrarRecentemente()"
+        placeholder="Search albums..."
+        class="searchbar-central">
+      </ion-searchbar>
+
+      <ion-button fill="solid" class="filter-button" (click)="toggleCaixaFiltros()">
+        <ion-icon slot="icon-only" name="filter-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <!-- Filtros embutidos -->
+    <div *ngIf="mostrarCaixaFiltros" class="filtro-dropdown">
+      <h4 class="filtro-titulo">Filter Albums</h4>
+
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-select [(ngModel)]="filtroData">
+          <ion-select-option value="">Any</ion-select-option>
+          <ion-select-option value="recent">Most Recent</ion-select-option>
+          <ion-select-option value="oldest">Oldest</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Category</ion-label>
+        <ion-select [(ngModel)]="filtroCategoria">
+          <ion-select-option value="">Any</ion-select-option>
+          <ion-select-option *ngFor="let cat of categoriasDisponiveis" [value]="cat">{{ cat }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="block" class="apply-button" (click)="aplicarFiltrosInline()">Apply Filters</ion-button>
+    </div>
+
+    <!-- Mensagem inicial -->
+    <div *ngIf="!mostrarCaixaFiltros && historico.length === 0 && vistosRecentemente.length === 0 && !pesquisando" class="mensagem-inicial">
+      <p>Start exploring your albums by typing above!</p>
+    </div>
+
+    <!-- Resultados da pesquisa -->
+    <div *ngIf="!mostrarCaixaFiltros && pesquisando && sugestoesFiltradas.length > 0" class="dropdown-albuns">
+      <ion-list lines="none">
+        <ion-item button *ngFor="let album of sugestoesFiltradas" (click)="abrirAlbum(album)" class="item-card">
+          <ion-thumbnail slot="start">
+            <img [src]="album.ficheiro" />
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ album.titulo }}</h2>
+            <p>{{ album.data }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <!-- Histórico -->
+    <div *ngIf="!mostrarCaixaFiltros && !pesquisando && historico.length > 0" class="historico-pesquisa">
+      <div class="header-com-acao">
+        <h3 class="section-title">Recent Searches</h3>
+        <ion-button fill="solid" class="clear-button" size="small" (click)="limparHistorico()">Clear</ion-button>
+      </div>
+
+      <ion-list lines="none">
+        <ion-item button *ngFor="let termo of historico" (click)="selecionarHistorico(termo)">
+          <ion-icon name="time-outline" slot="start" color="medium"></ion-icon>
+          <ion-label>{{ termo }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <!-- Recently Viewed -->
+    <div *ngIf="!mostrarCaixaFiltros && !pesquisando && vistosRecentemente.length > 0" class="vistos-recentes">
+      <h3 class="section-title">Recently Viewed</h3>
+      <ion-list lines="none">
+        <ion-item button *ngFor="let album of vistosRecentemente" (click)="abrirAlbum(album)" class="item-card">
+          <ion-thumbnail slot="start">
+            <img [src]="album.ficheiro" />
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ album.titulo }}</h2>
+            <p>{{ album.data }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <!-- No results -->
+    <div *ngIf="!mostrarCaixaFiltros && pesquisando && query.length > 0 && sugestoesFiltradas.length === 0" class="sem-resultados">
+      <p>No results found for "{{ query }}"</p>
+    </div>
+
+  </div>
+</ion-content>
