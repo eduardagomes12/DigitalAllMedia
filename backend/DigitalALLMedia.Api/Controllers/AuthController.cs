@@ -36,7 +36,8 @@ namespace DigitalALLMedia.Api.Controllers
             {
                 Nome = dto.Nome,
                 Email = dto.Email,
-                Password = dto.Password // ⚠️ Em produção, deves cifrar com BCrypt ou similar
+                Password = dto.Password,
+                ProfileImageUrl = dto.ProfileImageUrl
             };
 
             _context.Users.Add(user);
@@ -66,6 +67,7 @@ namespace DigitalALLMedia.Api.Controllers
                 id = user.Id,
                 nome = user.Nome,
                 email = user.Email,
+                profileImageUrl = user.ProfileImageUrl,
                 message = "Login successful!"
             });
         }

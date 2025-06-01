@@ -4,7 +4,7 @@ namespace DigitalALLMedia.Api.Models
 {
     public class UserRegisterDto
     {
-         [Required]
+        [Required]
         public string Nome { get; set; }
 
         [Required, EmailAddress]
@@ -12,5 +12,7 @@ namespace DigitalALLMedia.Api.Models
 
         [Required]
         public string Password { get; set; }
+
+        public string? ProfileImageUrl { get; set; } // <-- ADICIONADO
     }
 }
