@@ -1,6 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
+
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
+
+interface Album {
+  name: string;
+  cover: string;
+  images: string[];
+}
+
+interface PrintItem {
+  cover: string;
+  type: string;  // tipo de impressão
+  qty: number;
+}
 
 @Component({
   selector: 'app-delivery-details',
@@ -8,49 +21,67 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./delivery-details.page.scss'],
   standalone: false,
 })
-export class DeliveryDetailsPage implements OnInit {
-  deliveryForm!: FormGroup;
+export class DeliveryDetailsPage {
+  selectedFotos: string[] = [];
+  selectedAlbuns: Album[] = [];
+  items: PrintItem[] = [];
 
-  constructor(
-    private fb: FormBuilder,
-    private toastController: ToastController
-  ) {}
+  constructor(private router: Router, private storage: Storage) {}
 
-  ngOnInit() {
-    const today = new Date();
-    const futureDate = new Date(today.setDate(today.getDate() + 7));
-    const dateStr = futureDate.toISOString().split('T')[0]; // formato yyyy-mm-dd
+  async ionViewWillEnter() {
+    await this.storage.create();
+    this.selectedFotos = await this.storage.get('selectedFotos') || [];
+    this.selectedAlbuns = await this.storage.get('selectedAlbuns') || [];
+    const photoTypes: string[][] = await this.storage.get('photoPrints') || [];
+    const albumTypes: string[][] = await this.storage.get('albumPrints') || [];
 
-    this.deliveryForm = this.fb.group({
-      nome: ['', Validators.required],
-      contacto: ['', [Validators.required, Validators.pattern('^\\d{9}$')]], // 9 dígitos exatos
-      email: ['', [Validators.required, Validators.email]],
-      morada: ['', Validators.required],
-      codigoPostal: ['', [Validators.required, Validators.pattern('^\\d{4}-\\d{3}$')]], // Formato 1234-567
-      cidade: ['', Validators.required],
-      infoAdicional: [''],
-      metodo: ['', Validators.required],
-      data: [dateStr, Validators.required]
+    this.items = [];
+
+    // Adiciona cada combinação de foto + tipo selecionado
+    this.selectedFotos.forEach((foto, i) => {
+      const types = photoTypes[i] || [];
+      types.forEach(type => {
+        this.items.push({
+          cover: foto,
+          type,
+          qty: 1
+        });
+      });
+    });
+
+    // Adiciona cada combinação de álbum + tipo selecionado
+    this.selectedAlbuns.forEach((album, i) => {
+      const types = albumTypes[i] || [];
+      types.forEach(type => {
+        this.items.push({
+          cover: album.cover,
+          type,
+          qty: 1
+        });
+      });
     });
   }
 
-  async adicionarDetalhes() {
-    if (this.deliveryForm.valid) {
-      console.log(this.deliveryForm.value);
-      const toast = await this.toastController.create({
-        message: 'Delivery details added successfully!',
-        duration: 2000,
-        cssClass: 'custom-toast-success',
-      });
-      await toast.present();
-    } else {
-      this.deliveryForm.markAllAsTouched();
-      const toast = await this.toastController.create({
-        message: 'Please fill in all required fields correctly.',
-        duration: 2500,
-        color: 'danger'
-      });
-      await toast.present();
+  increment(index: number) {
+    this.items[index].qty++;
+  }
+
+  decrement(index: number) {
+    if (this.items[index].qty > 1) {
+      this.items[index].qty--;
     }
+  }
+
+  removeItem(index: number) {
+    this.items.splice(index, 1);
+  }
+
+  continuar() {
+    console.log('Resumo para entrega:', this.items);
+    // Navegar para o próximo passo, se necessário
+  }
+
+  goToProfile() {
+    this.router.navigate(['/profile']);
   }
 }

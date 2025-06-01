@@ -1,87 +1,107 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs"></ion-back-button>
+      <ion-button fill="clear" routerLink="/profile" class="avatar-button">
+        <ion-avatar class="avatar-container">
+          <img src="assets/images/icon_profile.png" />
+          <span class="online-indicator"></span>
+        </ion-avatar>
+      </ion-button>
     </ion-buttons>
 
-    <div class="step-title-container">
-      <div class="step-number">Step 3 :</div>
-      <div class="step-title">Delivery Details</div>
-    </div>
+    <ion-title class="ion-text-center">Digital ALL Media</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="pagina-delivery" fullscreen>
-  <div class="titulo-delivery">
-    <ion-icon name="information-circle-outline"></ion-icon>
-    <h2>Please fill in your shipping details</h2>
+<ion-content class="pagina ion-padding">
+  <div class="conteudo">
+    <div class="top-bar">
+      <h1 class="page-title">Create Order</h1>
+      <ion-button fill="outline" size="small" class="cancel-button" routerLink="/tabs">
+        CANCEL
+      </ion-button>
+    </div>
+
+    <div class="stepper">
+      <div class="line"></div>
+
+      <!-- STEP 1 -->
+      <div class="step active">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">
+            1. Add File
+            <ion-button fill="clear" size="small" class="edit-btn" routerLink="/adicionar-arquivo">
+              EDIT
+            </ion-button>
+          </div>
+          <div class="selected-items">
+            <img *ngFor="let foto of selectedFotos" [src]="foto" class="thumb" />
+            <ion-chip *ngFor="let album of selectedAlbuns">{{ album.name }}</ion-chip>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step active">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">
+            2. Print Type
+            <ion-button fill="clear" size="small" class="edit-btn" routerLink="/select-print-type">
+              EDIT
+            </ion-button>
+          </div>
+
+          <!-- Resumo com edição -->
+          <div class="summary-section" *ngFor="let item of items; let i = index">
+            <div class="summary-item">
+              <img [src]="item.cover" class="thumb" />
+              <div class="info">
+                <div class="type">{{ item.type }}</div>
+                <div class="quantity-control">
+                  <ion-button fill="clear" (click)="decrement(i)">-</ion-button>
+                  {{ item.qty }}
+                  <ion-button fill="clear" (click)="increment(i)">+</ion-button>
+                </div>
+              </div>
+              <ion-button fill="clear" color="danger" (click)="removeItem(i)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">3. Delivery Details</div>
+          <div class="subtitle">e.g. Name, Address, Instructions</div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step">
+        <div class="dot"></div>
+        <div class="text">
+          <div class="title">4. Confirm Order</div>
+          <div class="subtitle">e.g. Summary & Payment Method</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <form [formGroup]="deliveryForm" (ngSubmit)="adicionarDetalhes()">
-    <ion-label class="form-section">Recipient</ion-label>
-    <ion-input formControlName="nome" placeholder="Full Name" class="custom-input"></ion-input>
-    <div *ngIf="deliveryForm.get('nome')?.touched && deliveryForm.get('nome')?.invalid" class="error-message">
-      Required field.
-    </div>
-
-    <div class="input-row">
-      <ion-input formControlName="contacto" placeholder="Phone Number" class="custom-input small"></ion-input>
-      <ion-input formControlName="email" placeholder="Email" class="custom-input small"></ion-input>
-    </div>
-    <div *ngIf="deliveryForm.get('contacto')?.touched && deliveryForm.get('contacto')?.invalid" class="error-message">
-      Enter a 9-digit number.
-    </div>
-    <div *ngIf="deliveryForm.get('email')?.touched && deliveryForm.get('email')?.invalid" class="error-message">
-      Enter a valid email.
-    </div>
-
-    <ion-label class="form-section">Shipping Address</ion-label>
-    <ion-input formControlName="morada" placeholder="Street Address" class="custom-input"></ion-input>
-    <div *ngIf="deliveryForm.get('morada')?.touched && deliveryForm.get('morada')?.invalid" class="error-message">
-      Required field.
-    </div>
-
-    <div class="input-row">
-      <ion-input formControlName="codigoPostal" placeholder="Postal Code" class="custom-input small"></ion-input>
-      <ion-input formControlName="cidade" placeholder="City" class="custom-input small"></ion-input>
-    </div>
-    <div *ngIf="deliveryForm.get('codigoPostal')?.touched && deliveryForm.get('codigoPostal')?.invalid" class="error-message">
-      Format: 0000-000
-    </div>
-    <div *ngIf="deliveryForm.get('cidade')?.touched && deliveryForm.get('cidade')?.invalid" class="error-message">
-      Required field.
-    </div>
-
-    <ion-label class="form-section">Delivery Instructions</ion-label>
-    <ion-input formControlName="infoAdicional" placeholder="Additional Info" class="custom-input"></ion-input>
-
-    <div class="input-row">
-      <ion-select
-        formControlName="metodo"
-        class="custom-input small"
-        placeholder="Select Method"
-        interface="popover">
-        <ion-select-option value="home">Home Delivery</ion-select-option>
-        <ion-select-option value="store">Pickup at Store</ion-select-option>
-      </ion-select>
-
-      <ion-input
-        formControlName="data"
-        class="custom-input small"
-        readonly
-        [value]="deliveryForm.get('data')?.value">
-      </ion-input>
-    </div>
-
-    <small class="delivery-info">Estimated delivery in 7 days</small>
-
-    <div *ngIf="deliveryForm.get('metodo')?.touched && deliveryForm.get('metodo')?.invalid" class="error-message">
-      Please select a delivery method.
-    </div>
-
-    <button type="submit" class="confirmar-button">
-      <ion-icon name="checkbox-outline" slot="start"></ion-icon>
-      ADD DETAILS
-    </button>
-  </form>
+  <!-- Continue Button -->
+  <ion-button expand="block" class="add-button" (click)="continuar()">
+    <ion-icon name="add-circle" slot="start"></ion-icon>
+    Continue
+  </ion-button>
 </ion-content>

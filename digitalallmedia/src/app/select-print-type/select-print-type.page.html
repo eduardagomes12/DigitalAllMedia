@@ -17,15 +17,20 @@
     <div class="section" *ngFor="let photo of selectedFotos; let i = index">
       <div class="media-title">
         <img [src]="photo" class="preview-thumb" />
-        <span>Choose print type for photo {{ i + 1 }}</span>
+        <span>Choose print types for photo {{ i + 1 }}</span>
       </div>
       <ion-list>
-        <ion-radio-group [(ngModel)]="selectedPhotoOptions[i]">
-          <ion-item *ngFor="let option of printOptionsPhotos">
-            <ion-label>{{ option }}</ion-label>
-            <ion-radio slot="end" [value]="option"></ion-radio>
-          </ion-item>
-        </ion-radio-group>
+        <ion-item *ngFor="let option of printOptionsPhotos">
+          <ion-checkbox
+            slot="start"
+            [checked]="selectedPhotoOptions[i]?.includes(option.label)"
+            (ionChange)="togglePhotoOption(i, option.label, $event.detail.checked)">
+          </ion-checkbox>
+          <ion-label>
+            {{ option.label }}
+            <span class="price">€{{ option.price.toFixed(2) }}</span>
+          </ion-label>
+        </ion-item>
       </ion-list>
     </div>
 
@@ -33,21 +38,26 @@
     <div class="section" *ngFor="let album of selectedAlbuns; let j = index">
       <div class="media-title">
         <img [src]="album.cover" class="preview-thumb" />
-        <span>Choose print type for album: {{ album.name }}</span>
+        <span>Choose print types for album: {{ album.name }}</span>
       </div>
       <ion-list>
-        <ion-radio-group [(ngModel)]="selectedAlbumOptions[j]">
-          <ion-item *ngFor="let option of printOptionsAlbums">
-            <ion-label>{{ option }}</ion-label>
-            <ion-radio slot="end" [value]="option"></ion-radio>
-          </ion-item>
-        </ion-radio-group>
+        <ion-item *ngFor="let option of printOptionsAlbums">
+          <ion-checkbox
+            slot="start"
+            [checked]="selectedAlbumOptions[j]?.includes(option.label)"
+            (ionChange)="toggleAlbumOption(j, option.label, $event.detail.checked)">
+          </ion-checkbox>
+          <ion-label>
+            {{ option.label }}
+            <span class="price">€{{ option.price.toFixed(2) }}</span>
+          </ion-label>
+        </ion-item>
       </ion-list>
     </div>
   </div>
 
-  <ion-button expand="block" class="add-button" (click)="continuar()">
-    <ion-icon name="add-circle" slot="start"></ion-icon>
+  <ion-button expand="block" class="add-button" (click)="continuar()" [disabled]="!isFormValid()">
+    <ion-icon name="checkmark-circle" slot="start"></ion-icon>
     Continue
   </ion-button>
 </ion-content>
