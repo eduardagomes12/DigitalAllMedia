@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { DeliveryDetailsPageRoutingModule } from './delivery-details-routing.module';
 import { DeliveryDetailsPage } from './delivery-details.page';
-
+//
 @NgModule({
   imports: [
     CommonModule,
