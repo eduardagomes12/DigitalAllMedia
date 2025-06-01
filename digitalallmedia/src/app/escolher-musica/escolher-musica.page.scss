@@ -1,92 +1,116 @@
-:host {
-  --ion-background-color: #0e0e0e;
-  --ion-text-color: #ffffff;
-}
-
-.music-content {
-  --background: #0e0e0e;
-  color: white;
-}
-
 .top-toolbar {
-  --background: #1a1a1a;
-  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .cancel-inline {
+    --background: #6b0f0f;
+    --color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+    border-radius: 40px;
+    padding: 6px 16px;
+    height: 36px;
+  }
 
   .top-title {
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-    width: 100%;
+    font-size: 1.1rem;
+    font-weight: normal;
+    margin: 0 auto;
   }
 }
 
-.cancel-inline {
+.search-wrapper {
+  padding: 0 1rem;
+}
+
+.music-segment ion-segment-button {
+  --background: #222;
+  --background-checked: #6b0f0f;
+  --color: white;
+  --color-checked: white;
+  font-size: 0.6rem;
+  height: 20px;
+  padding: 0 8px;
+  margin: 0 2px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  min-width: fit-content;
+}
+
+.music-card {
+  --background: #fff;
+  border-radius: 16px;
+  margin: 12px 0;
+  padding: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: border 0.3s ease, transform 0.3s ease;
+
+  &.playing {
+    border: 2px solid #6b0f0f;
+    animation: pulse 1s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(107, 15, 15, 0.4); }
+  70% { transform: scale(1.02); box-shadow: 0 0 0 6px rgba(107, 15, 15, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(107, 15, 15, 0); }
+}
+
+.music-icon {
+  font-size: 28px;
+  color: #6b0f0f;
+  cursor: pointer;
+}
+
+.music-info {
+  cursor: pointer;
+}
+
+.add-btn,
+.remove-btn {
+  height: 28px;
+  font-size: 0.7rem;
+  border-radius: 10px;
+  padding: 0 10px;
   --background: #6b0f0f;
   --color: white;
-  --border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 4px 14px;
-  text-transform: none;
-  height: 32px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.custom-search {
-  margin: 12px 0;
-  --background: #1f1f1f;
-  --color: white;
-  --placeholder-color: #aaa;
-  --icon-color: #aaa;
-  border-radius: 12px;
-}
-
-.music-filters {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 16px;
-}
-
-.filter-btn {
-  --background: #2a2a2a;
-  --border-radius: 12px;
-  --color: white;
-  font-size: 13px;
-  padding: 6px 12px;
-  text-transform: none;
-}
-
-ion-list {
+.remove-btn {
+  --color: #6b0f0f;
+  --border-color: #6b0f0f;
   --background: transparent;
 }
 
-ion-item {
-  --background: #1b1b1b;
-  border-bottom: 1px solid #333;
-  border-radius: 10px;
-  margin-bottom: 6px;
-  color: white;
-
-  ion-thumbnail {
-    border-radius: 8px;
-    overflow: hidden;
-    background: #333;
-    width: 50px;
-    height: 50px;
-  }
-
-  ion-img {
-    object-fit: cover;
-  }
-
-  ion-label {
-    font-weight: 500;
-    font-size: 15px;
-  }
-
-  ion-icon {
-    font-size: 20px;
-    color: #ae2027;
-  }
+.no-music-msg {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #6b0f0f;
 }
+
+.save-btn {
+  --background: #6b0f0f;
+  --color: white;
+  font-weight: bold;
+  border-radius: 50px;
+  font-size: 1rem;
+  height: 52px;
+  width: 100%;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  box-shadow: none; 
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer-btn {
+  padding: 0 1.5rem; 
+  display: flex;
+  justify-content: center;
+  background: transparent;
+}
+
