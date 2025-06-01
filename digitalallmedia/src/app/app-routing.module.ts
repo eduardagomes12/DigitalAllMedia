@@ -86,6 +86,10 @@ const routes: Routes = [
   {
     path: 'pesquisa',
     loadChildren: () => import('./pesquisa/pesquisa.module').then(m => m.PesquisaPageModule)
+  },
+  {
+    path: 'delivery-details',
+    loadChildren: () => import('./delivery-details/delivery-details.module').then( m => m.DeliveryDetailsPageModule)
   }
 ];
 

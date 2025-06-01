@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs"></ion-back-button>
+    </ion-buttons>
+
+    <div class="step-title-container">
+      <div class="step-number">Step 2 :</div>
+      <div class="step-title">Delivery Details</div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pagina-delivery" fullscreen>
+  <div class="titulo-delivery">
+    <ion-icon name="information-circle-outline"></ion-icon>
+    <h2>Please fill in your shipping details</h2>
+  </div>
+
+  <form [formGroup]="deliveryForm" (ngSubmit)="adicionarDetalhes()">
+    <ion-label class="form-section">Recipient</ion-label>
+    <ion-input formControlName="nome" placeholder="Full Name" class="custom-input"></ion-input>
+    <div *ngIf="deliveryForm.get('nome')?.touched && deliveryForm.get('nome')?.invalid" class="error-message">
+      Required field.
+    </div>
+
+    <div class="input-row">
+      <ion-input formControlName="contacto" placeholder="Phone Number" class="custom-input small"></ion-input>
+      <ion-input formControlName="email" placeholder="Email" class="custom-input small"></ion-input>
+    </div>
+    <div *ngIf="deliveryForm.get('contacto')?.touched && deliveryForm.get('contacto')?.invalid" class="error-message">
+      Enter a 9-digit number.
+    </div>
+    <div *ngIf="deliveryForm.get('email')?.touched && deliveryForm.get('email')?.invalid" class="error-message">
+      Enter a valid email.
+    </div>
+
+    <ion-label class="form-section">Shipping Address</ion-label>
+    <ion-input formControlName="morada" placeholder="Street Address" class="custom-input"></ion-input>
+    <div *ngIf="deliveryForm.get('morada')?.touched && deliveryForm.get('morada')?.invalid" class="error-message">
+      Required field.
+    </div>
+
+    <div class="input-row">
+      <ion-input formControlName="codigoPostal" placeholder="Postal Code" class="custom-input small"></ion-input>
+      <ion-input formControlName="cidade" placeholder="City" class="custom-input small"></ion-input>
+    </div>
+    <div *ngIf="deliveryForm.get('codigoPostal')?.touched && deliveryForm.get('codigoPostal')?.invalid" class="error-message">
+      Format: 0000-000
+    </div>
+    <div *ngIf="deliveryForm.get('cidade')?.touched && deliveryForm.get('cidade')?.invalid" class="error-message">
+      Required field.
+    </div>
+
+    <ion-label class="form-section">Delivery Instructions</ion-label>
+    <ion-input formControlName="infoAdicional" placeholder="Additional Info" class="custom-input"></ion-input>
+
+    <div class="input-row">
+      <ion-select
+        formControlName="metodo"
+        class="custom-input small"
+        placeholder="Select Method"
+        interface="popover">
+        <ion-select-option value="home">Home Delivery</ion-select-option>
+        <ion-select-option value="store">Pickup at Store</ion-select-option>
+      </ion-select>
+
+      <ion-input
+        formControlName="data"
+        class="custom-input small"
+        readonly
+        [value]="deliveryForm.get('data')?.value">
+      </ion-input>
+    </div>
+
+    <small class="delivery-info">Estimated delivery in 7 days</small>
+
+    <div *ngIf="deliveryForm.get('metodo')?.touched && deliveryForm.get('metodo')?.invalid" class="error-message">
+      Please select a delivery method.
+    </div>
+
+    <button type="submit" class="confirmar-button">
+      <ion-icon name="checkbox-outline" slot="start"></ion-icon>
+      ADD DETAILS
+    </button>
+  </form>
+</ion-content>

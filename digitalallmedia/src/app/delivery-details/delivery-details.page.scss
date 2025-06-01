@@ -1,0 +1,178 @@
+.pagina-delivery {
+  --background: #f6f6f6;
+  padding: 16px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Título */
+.titulo-delivery {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  color: #6b0f0f;
+  margin: 20px 0 24px 0;
+  font-weight: bold;
+}
+
+.titulo-delivery h2 {
+  font-weight: bold;
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Labels de secção */
+.form-section {
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  color: #222;
+  display: block;
+}
+
+/* Inputs */
+.custom-input {
+  --background: #fff;
+  --border-radius: 28px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  height: 46px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #ddd;
+  border-radius: 28px;
+  margin-bottom: 16px;
+}
+
+/* Inputs lado a lado */
+.input-row {
+  display: flex;
+  gap: 12px;
+}
+
+.custom-input.small {
+  flex: 1;
+}
+
+/* Botão Confirmar */
+.confirmar-button {
+  background-color: #6b0f0f;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  width: 350px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  margin: 24px auto 0 auto;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.confirmar-button ion-icon {
+  font-size: 20px;
+}
+
+.confirmar-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Cabeçalho */
+ion-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  --padding-start: 0;
+  --padding-end: 0;
+  min-height: 56px;
+}
+
+ion-buttons[slot="start"] {
+  position: absolute;
+  left: 0;
+}
+
+.step-title-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #6b0f0f;
+}
+
+.step-number {
+  background-color: #6b0f0f;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.step-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #6b0f0f;
+}
+
+/* Mensagens de erro */
+.error-message {
+  color: #b30000;
+  font-size: 13px;
+  margin: -12px 0 12px 4px;
+}
+
+/* Estilização específica para ion-select */
+ion-select.custom-input {
+  --background: #fff;
+  --border-radius: 28px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --min-height: 46px;
+  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --border: 1px solid #ddd;
+  width: 100%;
+  border-radius: 28px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* Corrigir ícone (seta) em bordô */
+ion-select.custom-input::part(icon) {
+  color: #6b0f0f;
+  font-size: 16px;
+  margin-right: 12px;
+}
+
+/* Opções selecionadas no popover */
+.select-interface-option.selected {
+  background-color: #fcecec !important;
+  color: #6b0f0f !important;
+}
+
+/* Flex nos inputs da linha */
+.input-row ion-select.custom-input,
+.input-row ion-input.custom-input {
+  flex: 1;
+}
+
+.delivery-info {
+  font-size: 12px;
+  color: #555;
+  margin-top: -12px;
+  margin-bottom: 12px;
+  margin-left: 220px;
+}
