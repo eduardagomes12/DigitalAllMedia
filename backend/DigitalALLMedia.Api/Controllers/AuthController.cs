@@ -19,6 +19,13 @@ namespace DigitalALLMedia.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterDto dto)
         {
+            if (string.IsNullOrWhiteSpace(dto.Nome) ||
+                string.IsNullOrWhiteSpace(dto.Email) ||
+                string.IsNullOrWhiteSpace(dto.Password))
+            {
+                return BadRequest(new { message = "All fields are required." });
+            }
+
             var exists = await _context.Users.AnyAsync(u => u.Email == dto.Email);
             if (exists)
             {
@@ -27,8 +34,9 @@ namespace DigitalALLMedia.Api.Controllers
 
             var user = new User
             {
+                Nome = dto.Nome,
                 Email = dto.Email,
-                Password = dto.Password // mais tarde podemos usar BCrypt aqui
+                Password = dto.Password // ⚠️ Em produção, deves cifrar com BCrypt ou similar
             };
 
             _context.Users.Add(user);
@@ -53,9 +61,30 @@ namespace DigitalALLMedia.Api.Controllers
                 return Unauthorized(new { message = "Invalid password." });
             }
 
-            return Ok(new { id = user.Id, email = user.Email, message = "Login successful!" });
+            return Ok(new
+            {
+                id = user.Id,
+                nome = user.Nome,
+                email = user.Email,
+                message = "Login successful!"
+            });
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _context.Users
+                .Select(u => new
+                {
+                    u.Id,
+                    u.Nome,
+                    u.Email,
+                    u.CreatedAt
+                })
+                .ToListAsync();
+
+            return Ok(users);
+        }
 
     }
 }
