@@ -18,8 +18,6 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <!-- Mensagem de orientação -->
   <div class="info-message">
     Start your album by selecting pictures below or adding your own.
   </div>
@@ -27,12 +25,10 @@
   <ion-grid>
     <ion-row>
       <ion-col size="4" *ngFor="let foto of fotosPadrao; let i = index">
-        <!-- Cartão "+" -->
         <ion-card *ngIf="foto.tipo === 'adicionar'" class="card-add" (click)="abrirSeletorDeImagens()">
           <div class="icone-add">+</div>
         </ion-card>
 
-        <!-- Cartões normais -->
         <ion-card *ngIf="!foto.tipo" (click)="toggleSelecao(i)" [class.selected]="foto.selecionado">
           <img [src]="foto.caminho" />
           <ion-icon *ngIf="foto.selecionado" name="checkmark-circle" class="check-icon"></ion-icon>
@@ -40,9 +36,14 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
 
 <ion-footer class="footer">
-  <ion-button expand="block" class="botao-continuar" (click)="confirmarSelecao()">Continue</ion-button>
+  <ion-button expand="block"
+            class="botao-continuar"
+            [disabled]="!existeSelecao()"
+            (click)="confirmarSelecao()">
+  Continue
+</ion-button>
+
 </ion-footer>

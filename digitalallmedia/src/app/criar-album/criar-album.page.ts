@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from 'src/services/storage.service';
 
-
 @Component({
   selector: 'app-criar-album',
   templateUrl: './criar-album.page.html',
@@ -17,8 +16,13 @@ export class CriarAlbumPage implements OnInit {
   textoPesquisa = '';
   ficheirosSelecionados: any[] = [];
   ficheirosFiltrados: any[] = [];
+  sucesso = false;
 
-  constructor(private router: Router, private fb: FormBuilder, private storageService: StorageService) {
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private storageService: StorageService
+  ) {
     this.albumForm = this.fb.group({
       albumName: ['', Validators.required],
       albumDescription: ['']
@@ -26,49 +30,76 @@ export class CriarAlbumPage implements OnInit {
   }
 
   ngOnInit(): void {
+    // Limpa estado anterior
+    this.albumForm.reset();
+    this.ficheirosSelecionados = [];
+    this.ficheirosFiltrados = [];
+    this.sucesso = false;
+
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state;
 
-    // ✅ Safe and clean access to "ficheiros"
     if (state && Array.isArray(state['ficheiros']) && state['ficheiros'].length > 0) {
       this.ficheirosSelecionados = state['ficheiros'];
       this.ficheirosFiltrados = [...this.ficheirosSelecionados];
     }
 
-    // ✅ Safe and correct access to music from localStorage
     const musica = localStorage.getItem('musicaSelecionada');
     if (musica) {
       const musicaObj = JSON.parse(musica);
       this.musicaSelecionada = musicaObj?.titulo || '';
     }
+
+    this.albumForm.get('albumName')?.valueChanges.subscribe(value => {
+      const desc = this.albumForm.get('albumDescription');
+      if (value && value.trim() !== '') {
+        desc?.enable({ emitEvent: false });
+      } else {
+        desc?.disable({ emitEvent: false });
+      }
+    });
+    this.albumForm.get('albumDescription')?.disable({ emitEvent: false });
   }
 
   adicionarMusica() {
     this.router.navigate(['/escolher-musica']);
   }
 
-  async guardarAlbum() {
-  if (this.albumForm.invalid) {
-    this.albumForm.markAllAsTouched();
-    return;
+  editarFotos() {
+    this.router.navigate(['/selecionar-ficheiros']);
   }
 
-  const novoAlbum = {
-    titulo: this.albumForm.value.albumName,
-    descricao: this.albumForm.value.albumDescription,
-    tags: [this.albumForm.value.albumName.toLowerCase()],
-    data: new Date().toISOString().split('T')[0],
-    local: 'Desconhecido',
-    tipo: 'album',
-    ficheiro: 'assets/default-album.jpg' 
-  };
+  isSaveDisabled(): boolean {
+    return (
+      this.albumForm.invalid ||
+      this.ficheirosSelecionados.length === 0
+    );
+  }
 
-  await this.storageService.guardarAlbum(novoAlbum);
+  async guardarAlbum() {
+    if (this.isSaveDisabled()) {
+      this.albumForm.markAllAsTouched();
+      return;
+    }
 
-  alert('Álbum criado com sucesso!');
-  this.router.navigate(['/tabs']);
-}
+    const novoAlbum = {
+      titulo: this.albumForm.value.albumName,
+      descricao: this.albumForm.value.albumDescription,
+      tags: [this.albumForm.value.albumName.toLowerCase()],
+      data: new Date().toISOString().split('T')[0],
+      local: 'Desconhecido',
+      tipo: 'album',
+      ficheiro: 'assets/default-album.jpg'
+    };
 
+    await this.storageService.guardarAlbum(novoAlbum);
+    this.sucesso = true;
+  }
+
+  fecharMensagem() {
+    this.sucesso = false;
+    this.router.navigate(['/tabs']);
+  }
 
   cancelar() {
     this.router.navigate(['/tabs']);

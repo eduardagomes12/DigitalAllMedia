@@ -127,6 +127,14 @@ ion-text[color="danger"] {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo para botão desativado */
+ion-button[disabled] {
+  opacity: 0.6;
+  pointer-events: none;
+  --background: #aaa;
+  --color: #fff;
+}
+
 /* Mensagem informativa */
 .info-message {
   font-size: 18px;
@@ -143,9 +151,15 @@ ion-card {
   background-color: #ffffff;
   border-radius: 12px;
   margin: 4px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 12px;
   }
 
@@ -210,4 +224,21 @@ ion-card {
 .footer {
   padding: 20px;
   background: #ffffff;
+}
+.label-fotos-com-editar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editar-fotos {
+  font-size: 14px;
+  --color: #6b0f0f;
+  text-transform: none;
+  padding: 0;
+  height: auto;
+}
+ion-button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }

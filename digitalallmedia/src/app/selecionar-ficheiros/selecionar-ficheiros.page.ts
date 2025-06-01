@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
@@ -9,7 +9,6 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   standalone: false,
 })
 export class SelecionarFicheirosPage implements OnInit {
-
   fotosPadrao = [
     { tipo: 'adicionar' }, // botão "+"
     { caminho: 'assets/images/foto1.jpg', selecionado: false },
@@ -22,7 +21,7 @@ export class SelecionarFicheirosPage implements OnInit {
     { caminho: 'assets/images/foto8.jpg', selecionado: false },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private ngZone: NgZone) {}
 
   ngOnInit() {}
 
@@ -35,16 +34,13 @@ export class SelecionarFicheirosPage implements OnInit {
         source: CameraSource.Photos
       });
 
-      if (image?.dataUrl) {
-        const novaImagem = {
-          caminho: image.dataUrl,
+      const caminhoSeguro = image?.dataUrl ?? '';
+      this.ngZone.run(() => {
+        this.fotosPadrao.push({
+          caminho: caminhoSeguro,
           selecionado: false
-        };
-
-        this.fotosPadrao.push(novaImagem);
-      } else {
-        console.warn('Nenhuma imagem foi selecionada.');
-      }
+        });
+      });
     } catch (error) {
       console.error('Erro ao selecionar imagem:', error);
     }
@@ -57,10 +53,16 @@ export class SelecionarFicheirosPage implements OnInit {
     }
   }
 
+  existeSelecao(): boolean {
+    return this.fotosPadrao.some(f => f.selecionado && !f.tipo);
+  }
+
   confirmarSelecao() {
     const selecionadas = this.fotosPadrao.filter(f => f.selecionado && !f.tipo);
-    this.router.navigate(['/criar-album'], {
-      state: { ficheiros: selecionadas }
-    });
+    if (selecionadas.length > 0) {
+      this.router.navigate(['/criar-album'], {
+        state: { ficheiros: selecionadas }
+      });
+    }
   }
 }

@@ -1,62 +1,83 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="top-bar">
     <ion-buttons slot="start">
-      <ion-button fill="clear" routerLink="/profile" class="avatar-button">
-        <ion-avatar class="avatar-container">
-          <img src="assets/images/icon_profile.png" />
-          <span class="online-indicator"></span>
-        </ion-avatar>
-      </ion-button>
+      <ion-back-button defaultHref="/tabs"></ion-back-button>
+      <ion-avatar class="avatar-perfil">
+        <img src="assets/images/icon_profile.png" alt="Profile Picture" />
+      </ion-avatar>
     </ion-buttons>
 
-    <ion-title class="ion-text-center">Digital ALL Media</ion-title>
+    <ion-title class="top-title">Digital ALL Media</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button fill="clear">
         <ion-icon name="settings-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+<ion-content class="ion-padding">
 
-<ion-content class="pagina ion-padding" fullscreen>
-  <!-- Top bar with title and cancel button -->
-  <div class="top-bar">
-    <h2 class="form-title">Create Album</h2>
-    <ion-button fill="solid" class="cancelar-button-inline" routerLink="/tabs">
-      Cancel
-    </ion-button>
+  <div class="titulo-e-cancelar">
+    <h2 class="form-header">Create Album</h2>
+    <ion-button fill="solid" class="cancel-inline" size="small" (click)="cancelar()">Cancel</ion-button>
   </div>
 
-  <div class="formulario">
-    <ion-label class="form-label">Album Name</ion-label>
-    <ion-input placeholder="e.g., Belgium Trip" class="custom-input" fill="solid"></ion-input>
+  <form [formGroup]="albumForm">
+    <label class="input-label">Album Name</label>
+    <ion-input
+      formControlName="albumName"
+      placeholder="e.g., Belgium Trip"
+      class="input-field"
+      [ngClass]="{ 'input-error': albumForm.get('albumName')?.invalid && albumForm.get('albumName')?.touched }">
+    </ion-input>
+    <ion-text color="danger" *ngIf="albumForm.get('albumName')?.invalid && albumForm.get('albumName')?.touched">
+      Album name is required.
+    </ion-text>
 
-    <ion-label class="form-label">Description</ion-label>
-    <ion-textarea placeholder="Add an optional note..." class="custom-input" autoGrow="true"></ion-textarea>
+    <label class="input-label">Description</label>
+    <ion-textarea
+      formControlName="albumDescription"
+      placeholder="Add an optional note..."
+      class="input-field">
+    </ion-textarea>
 
-    <ion-label class="form-label">Album Music</ion-label>
-    <ion-button expand="block" class="musica-button" routerLink="/escolher-musica">
-      <ion-icon name="musical-notes-outline" slot="start"></ion-icon>
-      Add Music
+    <label class="input-label">Album Music</label>
+    <ion-button expand="block" class="botao-musica" (click)="adicionarMusica()">
+      <ion-icon name="musical-notes-outline"></ion-icon>&nbsp;Add Music
     </ion-button>
 
-    <ion-label class="form-label label-fotos">Selected Photos</ion-label>
-    <div class="selected-images">
-      <img
-        *ngFor="let ficheiro of ficheirosSelecionados"
-        [src]="ficheiro.url || ficheiro.base64 || ficheiro.caminho"
-        class="thumbnail"
-        alt="selected photo"
-      />
+    <div class="selected-section">
+      <label class="input-label">Selected Photos</label>
+      <ion-button fill="clear" size="small" class="editar-fotos" (click)="editarFotos()">Edit</ion-button>
     </div>
-  </div>
 
-  <div class="botoes-fixos">
-    <ion-button expand="block" class="guardar-button">
-      <ion-icon name="folder-open-outline" slot="start"></ion-icon>
-      Save Album
-    </ion-button>
-  </div>
+    <div class="imagem-selecionada">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4" *ngFor="let foto of ficheirosFiltrados">
+            <img [src]="foto.caminho" />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </form>
+
+  <ion-card *ngIf="sucesso" class="success-card">
+    <ion-icon name="checkmark-circle-outline" class="success-icon"></ion-icon>
+    <p class="success-text">Album created successfully!</p>
+    <ion-button expand="block" class="confirm-button" (click)="fecharMensagem()">OK</ion-button>
+  </ion-card>
+
 </ion-content>
+
+<ion-footer class="footer">
+  <ion-button
+    expand="block"
+    class="botao-continuar"
+    [disabled]="isSaveDisabled()"
+    (click)="guardarAlbum()">
+    <ion-icon name="folder-outline"></ion-icon>&nbsp;Save Album
+  </ion-button>
+</ion-footer>

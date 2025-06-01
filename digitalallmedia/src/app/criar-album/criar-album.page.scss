@@ -1,176 +1,171 @@
-.pagina {
-  --background: #f6f6f6;
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+:host {
+  --ion-background-color: #ffffff;
+}
+
+ion-content {
+  background-color: #ffffff;
 }
 
 .top-bar {
+  --background: #ffffff;
+  background-color: #ffffff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+.top-title {
+  font-weight: 400;
+  font-size: 18px;
+  text-align: center;
+  color: #000;
+}
+
+.avatar-perfil {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  margin-left: 4px;
+
+  img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    background-color: #28a745;
+    border: 2px solid white;
+    border-radius: 50%;
+  }
+}
+
+/* ✅ NOVO BLOCO: título e botão Cancel */
+.titulo-e-cancelar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.form-header {
+  font-size: 24px;
+  font-weight: 700;
+  color: #6b0f0f;
+  margin: 0;
+}
+
+.cancel-inline {
+  --background: #6b0f0f;
+  --color: #fff;
+  --border-radius: 12px;
+  font-weight: 600;
+  text-transform: none;
+  padding: 0 14px;
+  height: 32px;
+  font-size: 14px;
+}
+
+.input-label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 16px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.input-field {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  margin-bottom: 10px;
+  font-size: 14px;
+  height: 45px;
+}
+
+.input-error {
+  border: 1px solid #c62828 !important;
+}
+
+.botao-musica,
+.botao-continuar {
+  --background: #6b0f0f;
+  --color: #fff;
+  --border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: none;
+  height: 45px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-.form-title {
-  font-size: 33px;
-  font-weight: bold;
-  color: #6b0f0f;
-  margin: 20px 0 20px 20px;
-  margin-left: -10px;
-}
-
-.cancelar-button-inline {
-  --background: #6b0f0f;
-  --color: white;
-  font-weight: bold;
-  text-transform: none;
-  font-size: 15px;
-  height: 40px;
-  padding: 10 20px;
-  border-radius: 999px;
-  border: none;
-  box-shadow: none; /* ❌ remove o brilho/efeito oval */
-  min-width: 100px;
-}
-
-.formulario {
-  padding-bottom: 100px;
-}
-
-/* Etiquetas */
-.form-label {
-  font-weight: 550;
-  margin-top: 24px;
-  margin-bottom: 8px;
-  font-size: 20px;
-  color: #000;
-}
-
-/* Espaçamento entre as duas primeiras labels e os inputs */
-.formulario ion-label:nth-of-type(1) + ion-input.custom-input,
-.formulario ion-label:nth-of-type(2) + ion-textarea.custom-input {
-  margin-top: 20px;
-}
-
-.custom-input {
-  --background: #ffffff;
-  --border-radius: 16px;
-  --padding-top: 14px;
-  --padding-bottom: 14px;
-  --padding-start: 16px;
-  --padding-end: 16px;
-  margin-bottom: 24px;
-  height: 56px;
-  box-sizing: border-box;
-}
-
-ion-textarea.custom-input {
-  min-height: 72px;
-}
-
-/* Botão de música */
-.musica-button,
-.guardar-button {
-  --background: #6b0f0f;
-  --color: white;
-  font-weight: 600;
-  border-radius: 28px;
-  height: 52px;
-  font-size: 16px;
-  text-transform: none;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.selected-section {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  margin-top: 30px;
+  margin-top: 24px;
 }
 
-/* Botão de música com espaçamento para baixo */
-.musica-button {
-  margin-bottom: 32px;
+.editar-fotos {
+  color: #6b0f0f;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 13px;
+  margin-right: 2px;
 }
 
-/* Label fotos com mais margem */
-.label-fotos {
-  margin-top: 32px;
-  margin-bottom: 12px;
-  font-weight: 550;
-  font-size: 20px;
+.imagem-selecionada img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+  padding: 16px;
+  background: #ffffff;
+}
+
+/* ✅ MODIFICADO: Centraliza o alerta */
+.success-card {
+  text-align: center;
+  width: 90%;
+  max-width: 320px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+.success-icon {
+  font-size: 48px;
+  color: #6b0f0f;
+}
+
+.success-text {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 16px 0;
   color: #000;
 }
 
-/* Miniaturas das fotos selecionadas */
-.selected-images {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 32px;
+.confirm-button {
+  --background: #6b0f0f;
+  --color: #fff;
+  --border-radius: 12px;
+  margin-top: 12px;
 }
-
-.thumbnail {
-  width: 80px;
-  height: 80px;
-  border-radius: 16px;
-  object-fit: cover;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Botões fixos */
-.botoes-fixos {
-  position: fixed;
-  bottom: 24px;
-  left: 16px;
-  right: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* Avatar */
-.avatar-container {
-  position: relative;
-  width: 36px;
-  height: 36px;
-}
-
-.avatar-container img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-.online-indicator {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  background-color: #3CC13B;
-  border: 2px solid white;
-  border-radius: 50%;
-}
-
-.avatar-button {
-  padding: 0;
-  --background: transparent;
-  --box-shadow: none;
-}
-
-/* Botões com bordas arredondadas */
-ion-button.guardar-button::part(native),
-ion-button.musica-button::part(native),
-ion-button.cancelar-button-inline::part(native) {
-  border-radius: 999px !important;
-}
-
-/* Input visual */
-ion-input.custom-input::part(native),
-ion-textarea.custom-input::part(native) {
-  border-radius: 16px !important;
-  font-size: 16px;
-}
-
-
