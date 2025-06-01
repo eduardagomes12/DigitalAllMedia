@@ -6,6 +6,7 @@ export interface RegisterPayload {
   nome: string;
   email: string;
   password: string;
+  profileImageUrl: string; // ✅ Adicionado para suportar a imagem
 }
 
 export interface LoginPayload {

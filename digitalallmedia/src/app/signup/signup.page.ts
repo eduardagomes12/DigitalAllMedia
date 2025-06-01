@@ -15,6 +15,7 @@ export class SignupPage implements OnInit {
   email: string = '';
   password: string = '';
   confirmarPassword: string = '';
+  profileImageUrl: string = 'assets/images/default-avatar.png'; // default
   erro: string = '';
 
   constructor(
@@ -52,15 +53,16 @@ export class SignupPage implements OnInit {
       nome: this.nome,
       email: this.email,
       password: this.password,
+      profileImageUrl: this.profileImageUrl // adiciona a imagem no registo
     }).subscribe({
       next: async () => {
-        await this.showToast('Conta criada com sucesso!');
+        await this.showToast('Account created successfully!');
         this.router.navigateByUrl('/termos');
       },
       error: (err) => {
-        this.erro = 'Erro ao criar conta. Verifica os dados.';
+        this.erro = 'Failed to create account. Please check your data.';
         console.error(err);
-        this.showToast('Erro ao criar conta.');
+        this.showToast(this.erro);
       }
     });
   }

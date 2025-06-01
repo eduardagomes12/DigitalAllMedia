@@ -43,6 +43,7 @@ export class LoginPage implements OnInit {
     }).subscribe({
       next: async (res) => {
         await this.storage.set('userEmail', this.email);
+        await this.storage.set('profileImage', res.profileImageUrl || 'assets/images/icon_profile.png');
         this.router.navigateByUrl('/tabs');
       },
       error: (err) => {
