@@ -36,11 +36,14 @@ export class CartPage {
     }
   }
 
-  getTotal(): number {
-    return this.orders
+  getTotal(): string {
+    const total = this.orders
       .filter(o => this.selectedRefs.includes(o.ref))
       .reduce((sum, o) => sum + (o.unitPrice * o.quantity), 0);
+
+    return total.toFixed(2); // ← formata com 2 casas decimais
   }
+
 
   increaseQuantity(order: any) {
     order.quantity++;

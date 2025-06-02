@@ -81,7 +81,7 @@ export class ConfirmarEncomendaPage {
     const alert = document.createElement('ion-alert');
     alert.header = 'Order Confirmed';
     alert.message = `
-      Your order number is <strong>#${orderNumber}</strong>.<br>
+      Your order number is #${orderNumber}.
       Thank you for shopping with us!
     `;
     alert.buttons = [
