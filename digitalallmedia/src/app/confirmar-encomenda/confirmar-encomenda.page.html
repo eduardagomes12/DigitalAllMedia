@@ -43,7 +43,7 @@
     <h2 class="section-title">Payment Method</h2>
 
     <ion-radio-group [(ngModel)]="paymentMethod">
-      <ion-item (click)="togglePayment('bank')">
+      <ion-item>
         <ion-icon name="card" slot="start"></ion-icon>
         <ion-label>Bank Transfer</ion-label>
         <ion-radio slot="end" value="bank"></ion-radio>
@@ -54,7 +54,7 @@
         <p><strong>Amount:</strong> €{{ total.toFixed(2) }}</p>
       </div>
 
-      <ion-item (click)="togglePayment('mb')">
+      <ion-item>
         <ion-icon name="cash" slot="start"></ion-icon>
         <ion-label>Multibanco</ion-label>
         <ion-radio slot="end" value="mb"></ion-radio>

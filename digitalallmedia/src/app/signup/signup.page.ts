@@ -31,6 +31,7 @@ export class SignupPage implements OnInit {
       message: mensagem,
       duration: 2000,
       position: 'top',
+      color: 'digitalallmedia',
       cssClass: 'custom-toast-success'
     });
     toast.present();
