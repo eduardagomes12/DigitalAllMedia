@@ -18,6 +18,8 @@ export class CriarAlbumPage implements OnInit {
   ficheirosFiltrados: any[] = [];
   sucesso = false;
 
+  categoriasDisponiveis: string[] = [];
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -25,30 +27,38 @@ export class CriarAlbumPage implements OnInit {
   ) {
     this.albumForm = this.fb.group({
       albumName: ['', Validators.required],
-      albumDescription: ['']
+      albumDescription: [''],
+      albumCategory: ['']
     });
   }
 
   ngOnInit(): void {
-    // Limpa estado anterior
-    this.albumForm.reset();
-    this.ficheirosSelecionados = [];
-    this.ficheirosFiltrados = [];
-    this.sucesso = false;
-
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state;
 
     if (state && Array.isArray(state['ficheiros']) && state['ficheiros'].length > 0) {
       this.ficheirosSelecionados = state['ficheiros'];
       this.ficheirosFiltrados = [...this.ficheirosSelecionados];
+      localStorage.setItem('fotosSelecionadasTemp', JSON.stringify(this.ficheirosSelecionados));
+    } else {
+      const fotosTemp = localStorage.getItem('fotosSelecionadasTemp');
+      if (fotosTemp) {
+        this.ficheirosSelecionados = JSON.parse(fotosTemp);
+        this.ficheirosFiltrados = [...this.ficheirosSelecionados];
+      } else {
+        this.resetarFormulario();
+      }
     }
 
-    const musica = localStorage.getItem('musicaSelecionada');
-    if (musica) {
-      const musicaObj = JSON.parse(musica);
-      this.musicaSelecionada = musicaObj?.titulo || '';
-    }
+    const categoriasFixasExtras = ['Art', 'Nature', 'Animals','Beauty','Friends','Family',];
+
+    fetch('/assets/data.json')
+      .then(res => res.json())
+      .then((albuns: any[]) => {
+        const categoriasDataJson = albuns.map(album => album.categoria).filter(Boolean);
+        const todasCategorias = [...new Set([...categoriasDataJson, ...categoriasFixasExtras])];
+        this.categoriasDisponiveis = todasCategorias;
+      });
 
     this.albumForm.get('albumName')?.valueChanges.subscribe(value => {
       const desc = this.albumForm.get('albumDescription');
@@ -58,7 +68,18 @@ export class CriarAlbumPage implements OnInit {
         desc?.disable({ emitEvent: false });
       }
     });
+
     this.albumForm.get('albumDescription')?.disable({ emitEvent: false });
+  }
+
+  ionViewWillEnter() {
+    const musica = localStorage.getItem('musicaSelecionada');
+    if (musica) {
+      const musicaObj = JSON.parse(musica);
+      this.musicaSelecionada = musicaObj?.titulo || '';
+    } else {
+      this.musicaSelecionada = '';
+    }
   }
 
   adicionarMusica() {
@@ -66,12 +87,13 @@ export class CriarAlbumPage implements OnInit {
   }
 
   editarFotos() {
+    localStorage.setItem('fotosSelecionadasTemp', JSON.stringify(this.ficheirosSelecionados));
     this.router.navigate(['/selecionar-ficheiros']);
   }
 
   isSaveDisabled(): boolean {
     return (
-      this.albumForm.invalid ||
+      this.albumForm.get('albumName')?.invalid ||
       this.ficheirosSelecionados.length === 0
     );
   }
@@ -82,27 +104,47 @@ export class CriarAlbumPage implements OnInit {
       return;
     }
 
+    const capa = this.ficheirosSelecionados[0]?.caminho || 'assets/default-album.jpg';
+
     const novoAlbum = {
       titulo: this.albumForm.value.albumName,
       descricao: this.albumForm.value.albumDescription,
+      categoria: this.albumForm.value.albumCategory,
       tags: [this.albumForm.value.albumName.toLowerCase()],
       data: new Date().toISOString().split('T')[0],
       local: 'Desconhecido',
       tipo: 'album',
-      ficheiro: 'assets/default-album.jpg'
+      ficheiro: capa
     };
 
     await this.storageService.guardarAlbum(novoAlbum);
+
+    this.limparDadosTemporarios();
     this.sucesso = true;
   }
 
   fecharMensagem() {
     this.sucesso = false;
-    this.router.navigate(['/tabs']);
+    this.router.navigate(['/meus-albuns']);
   }
 
   cancelar() {
+    this.limparDadosTemporarios();
     this.router.navigate(['/tabs']);
+  }
+
+  limparDadosTemporarios() {
+    localStorage.removeItem('fotosSelecionadasTemp');
+    localStorage.removeItem('musicaSelecionada');
+    this.resetarFormulario();
+  }
+
+  resetarFormulario() {
+    this.albumForm.reset();
+    this.ficheirosSelecionados = [];
+    this.ficheirosFiltrados = [];
+    this.musicaSelecionada = '';
+    this.sucesso = false;
   }
 
   filtrarFicheiros() {
