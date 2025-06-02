@@ -1,36 +1,78 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title class="ion-text-center">
-      <ion-icon name="checkbox-outline"></ion-icon>
-      Confirmar Encomenda
+  <ion-toolbar style="--background: #f6f6f6">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" routerLink="/confirm-order">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center step-title">
+      <span class="step-number">Step 4:</span> Finalize Order
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="pagina ion-padding">
-  <h2>Resumo da Encomenda</h2>
-  <ion-item>
-    <ion-label>Itens</ion-label>
-    <ion-input readonly value="..." placeholder="Total de itens"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>Total</ion-label>
-    <ion-input readonly value="..." placeholder="€0,00"></ion-input>
-  </ion-item>
+  <div class="conteudo">
+    <h2 class="section-title">Order Summary</h2>
 
-  <h2>Método de Pagamento</h2>
-  <ion-list>
-    <ion-item *ngFor="let metodo of metodosPagamento">
-      <ion-icon [name]="metodo.icon" slot="start"></ion-icon>
-      <ion-label>{{ metodo.label }}</ion-label>
-      <ion-radio slot="end" [value]="metodo.label" [(ngModel)]="metodoSelecionado"></ion-radio>
-    </ion-item>
-  </ion-list>
+    <div class="summary-items">
+      <div class="item" *ngFor="let item of items; let i = index">
+        <span>{{ item.type }}</span>
+        <span>x{{ item.qty }}</span>
+        <span>€{{ (getPrice(item.type) * item.qty).toFixed(2) }}</span>
+        <ion-button fill="clear" color="danger" size="small" (click)="removeItem(i)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
 
-  <ion-button expand="block" fill="outline" color="medium" routerLink="/tabs">Cancelar</ion-button>
+    <div class="total">
+      <strong>Total:</strong> €{{ total.toFixed(2) }}
+    </div>
 
-  <ion-button expand="block" class="confirmar-btn" (click)="confirmarPagamento()">
-    <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
-    Confirmar
-  </ion-button>
+    <h2 class="section-title">Delivery Details</h2>
+    <div class="summary-items">
+      <p><strong>Name:</strong> {{ deliveryInfo.nome }}</p>
+      <p><strong>Address:</strong> {{ deliveryInfo.morada }}, {{ deliveryInfo.codigoPostal }} {{ deliveryInfo.cidade }}</p>
+      <p><strong>Phone/Email:</strong> {{ deliveryInfo.contacto }} / {{ deliveryInfo.email }}</p>
+      <p><strong>Method:</strong> {{ deliveryInfo.metodo === 'home' ? 'Home Delivery' : 'Pickup at Store' }}</p>
+      <p><strong>Date:</strong> {{ deliveryInfo.data }}</p>
+      <p *ngIf="deliveryInfo.infoAdicional"><strong>Note:</strong> {{ deliveryInfo.infoAdicional }}</p>
+    </div>
+
+    <h2 class="section-title">Payment Method</h2>
+
+    <ion-radio-group [(ngModel)]="paymentMethod">
+      <ion-item (click)="togglePayment('bank')">
+        <ion-icon name="card" slot="start"></ion-icon>
+        <ion-label>Bank Transfer</ion-label>
+        <ion-radio slot="end" value="bank"></ion-radio>
+      </ion-item>
+      <div *ngIf="paymentMethod === 'bank'" class="payment-details">
+        <p><strong>IBAN:</strong> PT50 0002 0123 1234 5678 9015 4</p>
+        <p><strong>Account Name:</strong> Digital ALL Media</p>
+        <p><strong>Amount:</strong> €{{ total.toFixed(2) }}</p>
+      </div>
+
+      <ion-item (click)="togglePayment('mb')">
+        <ion-icon name="cash" slot="start"></ion-icon>
+        <ion-label>Multibanco</ion-label>
+        <ion-radio slot="end" value="mb"></ion-radio>
+      </ion-item>
+      <div *ngIf="paymentMethod === 'mb'" class="payment-details">
+        <p><strong>Entity:</strong> 12345</p>
+        <p><strong>Reference:</strong> {{ mbReference }}</p>
+        <p><strong>Amount:</strong> €{{ total.toFixed(2) }}</p>
+      </div>
+    </ion-radio-group>
+
+    <ion-button expand="block" fill="outline" color="medium" (click)="cancel()">
+      CANCEL
+    </ion-button>
+
+    <ion-button expand="block" class="add-button" (click)="confirmOrder()" [disabled]="!paymentMethod">
+      <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+      CONFIRM
+    </ion-button>
+  </div>
 </ion-content>

@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
@@ -37,7 +36,6 @@ export class DeliveryDetailsPage {
 
     this.items = [];
 
-    // Adiciona cada combinação de foto + tipo selecionado
     this.selectedFotos.forEach((foto, i) => {
       const types = photoTypes[i] || [];
       types.forEach(type => {
@@ -49,7 +47,6 @@ export class DeliveryDetailsPage {
       });
     });
 
-    // Adiciona cada combinação de álbum + tipo selecionado
     this.selectedAlbuns.forEach((album, i) => {
       const types = albumTypes[i] || [];
       types.forEach(type => {
@@ -76,10 +73,11 @@ export class DeliveryDetailsPage {
     this.items.splice(index, 1);
   }
 
-  continuar() {
-  this.router.navigate(['/detalhes']);
+  async continuar() {
+    // 👉 Guarda os items no storage para serem usados no resumo final
+    await this.storage.set('finalItems', this.items);
+    this.router.navigate(['/detalhes']);
   }
-
 
   goToProfile() {
     this.router.navigate(['/profile']);

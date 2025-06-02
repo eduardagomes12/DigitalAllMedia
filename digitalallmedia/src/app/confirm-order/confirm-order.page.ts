@@ -37,7 +37,6 @@ export class ConfirmOrderPage {
     const albumTypes: string[][] = await this.storage.get('albumPrints') || [];
     const storedInfo = await this.storage.get('deliveryInfo') || {};
 
-    // Garantir que todas as propriedades existem
     this.deliveryInfo = {
       nome: storedInfo.nome || '',
       morada: storedInfo.morada || '',
@@ -81,12 +80,13 @@ export class ConfirmOrderPage {
     this.items.splice(index, 1);
   }
 
-  confirmar() {
-   this.router.navigate(['/confirmar-encomenda']);
-
+  async confirmar() {
+    await this.storage.set('finalItems', this.items);
+    await this.storage.set('finalDeliveryInfo', this.deliveryInfo);
+    this.router.navigate(['/confirmar-encomenda']);
   }
+
   goToTabs() {
-  this.router.navigate(['/tabs']);
+    this.router.navigate(['/tabs']);
   }
-
 }
