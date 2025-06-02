@@ -1,0 +1,12 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.confirmar-btn {
+  --background: #6b0f0f;
+  --color: white;
+  font-weight: bold;
+  margin-top: 20px;
+}

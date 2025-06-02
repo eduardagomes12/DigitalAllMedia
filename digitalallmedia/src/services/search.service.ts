@@ -13,9 +13,15 @@ export class SearchService {
     const json$ = this.http.get<any[]>('assets/data.json');
     const local$ = from(this.storageService.buscarAlbuns());
 
-    return combineLatest([json$ , local$]).pipe(
+    return combineLatest([json$, local$]).pipe(
       map(([jsonData, localData]) => {
         const todos = [...jsonData, ...localData];
+
+        // 🔎 Se não tiver termo de pesquisa, retorna tudo (para carregar categorias corretamente)
+        if (!termo || termo.trim() === '') {
+          return todos;
+        }
+
         termo = termo.toLowerCase();
         return todos.filter(item =>
           item.titulo.toLowerCase().includes(termo) ||

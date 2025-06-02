@@ -35,7 +35,20 @@ export class ConfirmOrderPage {
     this.selectedAlbuns = await this.storage.get('selectedAlbuns') || [];
     const photoTypes: string[][] = await this.storage.get('photoPrints') || [];
     const albumTypes: string[][] = await this.storage.get('albumPrints') || [];
-    this.deliveryInfo = await this.storage.get('deliveryInfo') || {};
+    const storedInfo = await this.storage.get('deliveryInfo') || {};
+
+    // Garantir que todas as propriedades existem
+    this.deliveryInfo = {
+      nome: storedInfo.nome || '',
+      morada: storedInfo.morada || '',
+      codigoPostal: storedInfo.codigoPostal || '',
+      cidade: storedInfo.cidade || '',
+      contacto: storedInfo.contacto || '',
+      email: storedInfo.email || '',
+      metodo: storedInfo.metodo || '',
+      data: storedInfo.data || '',
+      infoAdicional: storedInfo.infoAdicional || ''
+    };
 
     this.items = [];
 
@@ -69,10 +82,11 @@ export class ConfirmOrderPage {
   }
 
   confirmar() {
-    console.log('Final Order:', {
-      items: this.items,
-      delivery: this.deliveryInfo
-    });
-    // Aqui podes redirecionar para a página de pagamento ou mostrar um resumo
+   this.router.navigate(['/confirmar-encomenda']);
+
   }
+  goToTabs() {
+  this.router.navigate(['/tabs']);
+  }
+
 }

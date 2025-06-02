@@ -89,28 +89,35 @@ const routes: Routes = [
   },
   {
     path: 'delivery-details',
-    loadChildren: () => import('./delivery-details/delivery-details.module').then( m => m.DeliveryDetailsPageModule)
+    loadChildren: () => import('./delivery-details/delivery-details.module').then(m => m.DeliveryDetailsPageModule)
   },
   {
     path: 'detalhes',
-    loadChildren: () => import('./detalhes/detalhes.module').then( m => m.DetalhesPageModule)
+    loadChildren: () => import('./detalhes/detalhes.module').then(m => m.DetalhesPageModule)
   },
   {
     path: 'meus-albuns',
-    loadChildren: () => import('./meus-albuns/meus-albuns.module').then( m => m.MeusAlbunsPageModule)
+    loadChildren: () => import('./meus-albuns/meus-albuns.module').then(m => m.MeusAlbunsPageModule)
   },
   {
     path: 'cart',
-    loadChildren: () => import('./cart/cart.module').then( m => m.CartPageModule)
+    loadChildren: () => import('./cart/cart.module').then(m => m.CartPageModule)
   },
   {
     path: 'confirm-order',
-    loadChildren: () => import('./confirm-order/confirm-order.module').then( m => m.ConfirmOrderPageModule)
+    loadChildren: () => import('./confirm-order/confirm-order.module').then(m => m.ConfirmOrderPageModule)
   },
+  {
+    path: 'confirmar-encomenda',
+    loadChildren: () => import('./confirmar-encomenda/confirmar-encomenda.module').then(m => m.ConfirmarEncomendaPageModule)
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules,
+    onSameUrlNavigation: 'reload' // ✅ mantém navegação funcional mesmo na mesma rota
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

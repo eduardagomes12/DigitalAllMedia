@@ -3,13 +3,13 @@
 
 /* Fundo da página */
 .pagina-tabs {
-  --background: #f0f0f0;
+  --background: #f6f6f6;
   padding-bottom: 100px;
 }
 
 /* Cabeçalho limpo */
 ion-toolbar {
-  --background: #ffffff;
+  --background: #f6f6f6;
   --color: #000000;
   box-shadow: none;
 }
@@ -21,7 +21,7 @@ ion-toolbar {
   border-radius: 28px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-  background-color: #ffffff;
+  background-color: #f6f6f6;
 }
 
 .featured-card img {

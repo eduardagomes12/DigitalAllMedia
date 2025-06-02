@@ -12,16 +12,32 @@ export class StorageService {
   }
 
   async init() {
-    this._storage = await this.storage.create();
+    if (!this._storage) {
+      this._storage = await this.storage.create();
+    }
+  }
+
+  private async getStorage(): Promise<Storage> {
+    if (!this._storage) {
+      await this.init();
+    }
+    return this._storage!;
   }
 
   async guardarAlbum(album: any): Promise<void> {
-    const existentes = await this._storage?.get('albuns') || [];
-    existentes.push(album);
-    await this._storage?.set('albuns', existentes);
+    const storage = await this.getStorage();
+    const existentes = await storage.get('albuns') || [];
+    const atualizados = [album, ...existentes]; // adiciona no topo
+    await storage.set('albuns', atualizados);
   }
 
   async buscarAlbuns(): Promise<any[]> {
-    return await this._storage?.get('albuns') || [];
+    const storage = await this.getStorage();
+    return await storage.get('albuns') || [];
+  }
+
+  async limparAlbuns(): Promise<void> {
+    const storage = await this.getStorage();
+    await storage.remove('albuns');
   }
 }

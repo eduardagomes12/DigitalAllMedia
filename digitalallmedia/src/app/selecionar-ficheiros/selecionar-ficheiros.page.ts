@@ -23,7 +23,19 @@ export class SelecionarFicheirosPage implements OnInit {
 
   constructor(private router: Router, private ngZone: NgZone) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const fotosSalvas = localStorage.getItem('fotosSelecionadasTemp');
+    if (fotosSalvas) {
+      const selecionadas = JSON.parse(fotosSalvas);
+      const caminhosSelecionados = selecionadas.map((f: any) => f.caminho);
+
+      this.fotosPadrao.forEach(foto => {
+        if (!foto.tipo) {
+          foto.selecionado = caminhosSelecionados.includes(foto.caminho);
+        }
+      });
+    }
+  }
 
   async abrirSeletorDeImagens() {
     try {
@@ -59,10 +71,10 @@ export class SelecionarFicheirosPage implements OnInit {
 
   confirmarSelecao() {
     const selecionadas = this.fotosPadrao.filter(f => f.selecionado && !f.tipo);
-    if (selecionadas.length > 0) {
-      this.router.navigate(['/criar-album'], {
-        state: { ficheiros: selecionadas }
-      });
-    }
+    localStorage.removeItem('fotosSelecionadasTemp');
+
+    this.router.navigate(['/criar-album'], {
+      state: { ficheiros: selecionadas }
+    });
   }
 }

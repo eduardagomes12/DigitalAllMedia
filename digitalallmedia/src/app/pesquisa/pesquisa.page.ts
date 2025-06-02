@@ -30,30 +30,46 @@ export class PesquisaPage {
 
   ionViewWillEnter() {
     this.query = '';
-    this.sugestoesFiltradas = [];
     this.pesquisando = false;
+    this.sugestoesFiltradas = [];
+    this.historico = [];
+    this.vistosRecentemente = [];
 
     this.searchService.pesquisar('').subscribe(albuns => {
       this.todosAlbuns = albuns;
 
-      const historico = localStorage.getItem('historicoPesquisa');
-      const vistos = localStorage.getItem('vistosRecentemente');
+      const categoriasSalvas = localStorage.getItem('categorias');
+      const categoriasLocais = categoriasSalvas ? JSON.parse(categoriasSalvas) : [];
 
-      this.historico = historico ? JSON.parse(historico) : [];
-      this.vistosRecentemente = vistos ? JSON.parse(vistos) : [];
-
-      // categorias únicas
-      this.categoriasDisponiveis = [...new Set(this.todosAlbuns.map(a => a.categoria).filter(Boolean))];
-
-      if (!historico && !vistos) {
-        localStorage.setItem('primeiroAcesso', 'true');
-      }
+      const categoriasDosAlbuns = albuns.map(a => a.categoria).filter(Boolean);
+      const todasCategorias = [...categoriasDosAlbuns, ...categoriasLocais];
+      this.categoriasDisponiveis = Array.from(new Set(todasCategorias));
     });
+  }
+
+  ionViewDidLeave() {
+    this.query = '';
+    this.pesquisando = false;
+    this.sugestoesFiltradas = [];
+    this.historico = [];
+    this.vistosRecentemente = [];
   }
 
   filtrarSugestoes() {
     const termo = this.query.trim().toLowerCase();
     this.pesquisando = termo.length > 0;
+
+    if (this.pesquisando) {
+      const historico = localStorage.getItem('historicoPesquisa');
+      const vistos = localStorage.getItem('vistosRecentemente');
+
+      this.historico = historico ? JSON.parse(historico) : [];
+      const vistosParsed = vistos ? JSON.parse(vistos) : [];
+      this.vistosRecentemente = vistosParsed.length > 0 ? vistosParsed : [];
+    } else {
+      this.historico = [];
+      this.vistosRecentemente = [];
+    }
 
     this.sugestoesFiltradas = termo.length > 0
       ? this.todosAlbuns.filter(album =>
@@ -110,14 +126,9 @@ export class PesquisaPage {
   }
 
   salvarVistoRecentemente(album: any) {
-    let vistos = JSON.parse(localStorage.getItem('vistosRecentemente') || '[]');
-    const existe = vistos.find((a: any) => a.titulo === album.titulo);
-    if (!existe) {
-      vistos.unshift(album);
-      if (vistos.length > 3) vistos.pop();
-      localStorage.setItem('vistosRecentemente', JSON.stringify(vistos));
-    }
-    this.vistosRecentemente = vistos;
+    const ultimo = [album];
+    localStorage.setItem('vistosRecentemente', JSON.stringify(ultimo));
+    this.vistosRecentemente = ultimo;
   }
 
   toggleCaixaFiltros() {
@@ -125,22 +136,22 @@ export class PesquisaPage {
   }
 
   aplicarFiltrosInline() {
-  let resultados = [...this.todosAlbuns];
+    let resultados = [...this.todosAlbuns];
 
-  if (this.filtroCategoria) {
-    resultados = resultados.filter(album =>
-      album.categoria === this.filtroCategoria
-    );
+    if (this.filtroCategoria) {
+      resultados = resultados.filter(album =>
+        album.categoria === this.filtroCategoria
+      );
+    }
+
+    if (this.filtroData === 'recent') {
+      resultados.sort((a, b) => b.data.localeCompare(a.data));
+    } else if (this.filtroData === 'oldest') {
+      resultados.sort((a, b) => a.data.localeCompare(b.data));
+    }
+
+    this.sugestoesFiltradas = resultados;
+    this.pesquisando = true;
+    this.mostrarCaixaFiltros = false;
   }
-
-  if (this.filtroData === 'recent') {
-    resultados.sort((a, b) => b.data.localeCompare(a.data));
-  } else if (this.filtroData === 'oldest') {
-    resultados.sort((a, b) => a.data.localeCompare(b.data));
-  }
-
-  this.sugestoesFiltradas = resultados;
-  this.pesquisando = true;
-  this.mostrarCaixaFiltros = false; // fecha o retângulo
- }
 }

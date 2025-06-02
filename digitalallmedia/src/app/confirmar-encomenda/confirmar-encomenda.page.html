@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">
+      <ion-icon name="checkbox-outline"></ion-icon>
+      Confirmar Encomenda
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pagina ion-padding">
+  <h2>Resumo da Encomenda</h2>
+  <ion-item>
+    <ion-label>Itens</ion-label>
+    <ion-input readonly value="..." placeholder="Total de itens"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Total</ion-label>
+    <ion-input readonly value="..." placeholder="€0,00"></ion-input>
+  </ion-item>
+
+  <h2>Método de Pagamento</h2>
+  <ion-list>
+    <ion-item *ngFor="let metodo of metodosPagamento">
+      <ion-icon [name]="metodo.icon" slot="start"></ion-icon>
+      <ion-label>{{ metodo.label }}</ion-label>
+      <ion-radio slot="end" [value]="metodo.label" [(ngModel)]="metodoSelecionado"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" fill="outline" color="medium" routerLink="/tabs">Cancelar</ion-button>
+
+  <ion-button expand="block" class="confirmar-btn" (click)="confirmarPagamento()">
+    <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+    Confirmar
+  </ion-button>
+</ion-content>

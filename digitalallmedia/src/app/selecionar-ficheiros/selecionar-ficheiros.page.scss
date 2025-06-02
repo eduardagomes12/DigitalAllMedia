@@ -1,16 +1,16 @@
 :host {
-  --background: #ffffff;
+  --background: #f6f6f6;
 }
 
 ion-content {
-  background-color: #ffffff !important;
-  --background: #ffffff;
+  background-color: #f6f6f6 !important;
+  --background: #f6f6f6;
 }
 
 /* Header / Top Bar */
 .top-bar {
-  --background: #ffffff !important;
-  background-color: #ffffff !important;
+  --background: #f6f6f6 !important;
+  background-color: #f6f6f6 !important;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
 }
 
@@ -223,7 +223,7 @@ ion-card {
 /* Footer */
 .footer {
   padding: 20px;
-  background: #ffffff;
+  background: #f6f6f6;
 }
 .label-fotos-com-editar {
   display: flex;

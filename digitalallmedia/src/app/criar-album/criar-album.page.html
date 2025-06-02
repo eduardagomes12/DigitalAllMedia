@@ -1,24 +1,4 @@
-<ion-header>
-  <ion-toolbar class="top-bar">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs"></ion-back-button>
-      <ion-avatar class="avatar-perfil">
-        <img src="assets/images/icon_profile.png" alt="Profile Picture" />
-      </ion-avatar>
-    </ion-buttons>
-
-    <ion-title class="top-title">Digital ALL Media</ion-title>
-
-    <ion-buttons slot="end">
-      <ion-button fill="clear">
-        <ion-icon name="settings-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="ion-padding">
-
+<ion-content class="ion-padding"> 
   <div class="titulo-e-cancelar">
     <h2 class="form-header">Create Album</h2>
     <ion-button fill="solid" class="cancel-inline" size="small" (click)="cancelar()">Cancel</ion-button>
@@ -43,10 +23,19 @@
       class="input-field">
     </ion-textarea>
 
+    <label class="input-label">Category</label>
+    <ion-select formControlName="albumCategory" interface="popover" placeholder="Select a category" class="select-categoria-bordoux">
+      <ion-select-option *ngFor="let cat of categoriasDisponiveis" [value]="cat">{{ cat }}</ion-select-option>
+    </ion-select>
+
     <label class="input-label">Album Music</label>
     <ion-button expand="block" class="botao-musica" (click)="adicionarMusica()">
       <ion-icon name="musical-notes-outline"></ion-icon>&nbsp;Add Music
     </ion-button>
+
+    <ion-text color="medium" *ngIf="musicaSelecionada" class="musica-selecionada">
+      🎵 {{ musicaSelecionada }}
+    </ion-text>
 
     <div class="selected-section">
       <label class="input-label">Selected Photos</label>
@@ -69,7 +58,6 @@
     <p class="success-text">Album created successfully!</p>
     <ion-button expand="block" class="confirm-button" (click)="fecharMensagem()">OK</ion-button>
   </ion-card>
-
 </ion-content>
 
 <ion-footer class="footer">
