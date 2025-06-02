@@ -74,10 +74,14 @@
     <strong>€{{ getTotal() }}</strong>
   </div>
 
-  <ion-button expand="block" routerlink="/" (click)="finalizeOrder()" class="finalize-button">
+  <ion-button
+    expand="block"
+    (click)="finalizeOrder()"
+    [disabled]="selectedRefs.length === 0"
+    class="finalize-button"
+  >
     Finalize Order
   </ion-button>
-
 
   <div class="continue-shopping">
     or <a routerLink="/tabs">continue shopping</a>

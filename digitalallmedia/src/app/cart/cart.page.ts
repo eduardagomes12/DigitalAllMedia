@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
 import { CartService } from '../services/cart.service';
 
 @Component({
@@ -9,15 +10,19 @@ import { CartService } from '../services/cart.service';
   standalone: false
 })
 export class CartPage {
-
-  orders = [
-    { ref: 'ORD-001', title: 'Photo Album: Italy Trip', unitPrice: 24.99, quantity: 1 },
-    { ref: 'ORD-002', title: 'Canvas Print: Sunset', unitPrice: 24.99, quantity: 2 }
-  ];
-
+  orders: any[] = [];
   selectedRefs: string[] = [];
 
-  constructor(private cartService: CartService, private router: Router) {}
+  constructor(
+    private cartService: CartService,
+    private storage: Storage,
+    private router: Router
+  ) {}
+
+  async ionViewWillEnter() {
+    await this.storage.create();
+    this.orders = await this.storage.get('pendingOrders') || [];
+  }
 
   isSelected(ref: string): boolean {
     return this.selectedRefs.includes(ref);
@@ -48,11 +53,29 @@ export class CartPage {
   removeOrder(ref: string) {
     this.orders = this.orders.filter(o => o.ref !== ref);
     this.selectedRefs = this.selectedRefs.filter(r => r !== ref);
+    this.storage.set('pendingOrders', this.orders); // atualiza o storage
   }
 
-  finalizeOrder() {
+    async finalizeOrder() {
     const selectedOrders = this.orders.filter(o => this.selectedRefs.includes(o.ref));
-    this.cartService.setOrders(selectedOrders);
-    this.router.navigate(['/confirm-order']);
+
+    if (selectedOrders.length > 0) {
+      const selectedOrder = selectedOrders[0]; // vamos assumir uma por vez (como no exemplo)
+
+      // Guardar os dados reais para a próxima página
+      const finalItems = await this.storage.get('finalItems');
+      const finalDeliveryInfo = await this.storage.get('finalDeliveryInfo');
+
+      await this.storage.set('finalItems', finalItems);
+      await this.storage.set('finalDeliveryInfo', finalDeliveryInfo);
+
+      // 👉 Limpar a encomenda selecionada do array de pendingOrders
+      const allPending = await this.storage.get('pendingOrders') || [];
+      const updatedPending = allPending.filter((o: any) => o.ref !== selectedOrder.ref);
+      await this.storage.set('pendingOrders', updatedPending);
+
+      this.router.navigate(['/confirmar-encomenda']);
+    }
   }
+
 }

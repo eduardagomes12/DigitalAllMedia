@@ -22,17 +22,17 @@ export class ConfirmarEncomendaPage {
   deliveryInfo: any = {};
 
   priceMap: { [key: string]: number } = {
-    '10×15 cm': 0.35,
-    '15×20 cm': 0.50,
+    '10×15 cm': 0.50,
+    '15×20 cm': 0.65,
     '20×25 cm': 0.80,
-    'A4 (21×29,7 cm)': 1.50,
+    'A4 (21×29,7 cm)': 1.40,
     'A3 (29,7×42 cm)': 2.20,
-    '30×40 cm': 2.70,
+    '30×40 cm': 2.75,
     'PhotoBook': 10.99,
     'Mini Album (10x15)': 6.49,
     'Premium Album (Layflat)': 15.99,
     'Fine Art (Cotton Paper)': 20.99,
-    'Canvas (Tela)': 12.50
+    'Canvas (Tela)': 13.50
   };
 
   constructor(private router: Router, private storage: Storage) {}
