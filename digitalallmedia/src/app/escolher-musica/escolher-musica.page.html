@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar class="top-toolbar">
     <ion-buttons slot="start">
-      <ion-button fill="solid" size="small" class="cancel-inline" [routerLink]="['/criar-album']">
+      <ion-button fill="solid" size="small" class="cancel-button" [routerLink]="['/criar-album']">
         Cancel
       </ion-button>
     </ion-buttons>
@@ -11,25 +11,23 @@
 
 <ion-content fullscreen>
 
-  <div class="search-wrapper">
-    <ion-searchbar placeholder="Search music..." [(ngModel)]="searchTerm" (ionInput)="filtrarMusicas()">
-    </ion-searchbar>
-  </div>
+  <ion-searchbar placeholder="Search music..." [(ngModel)]="searchTerm" (ionInput)="filtrarMusicas()">
+  </ion-searchbar>
 
-  <div class="music-segment">
-    <ion-segment [(ngModel)]="abaAtual" (ionChange)="trocarAba(($event.detail.value || 'default') + '')">
-      <ion-segment-button value="default">
-        <ion-label>Available</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="saved">
-        <ion-label>Saved</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </div>
+  <ion-segment [(ngModel)]="abaAtual" (ionChange)="trocarAba(($event.detail.value || 'default') + '')">
+    <ion-segment-button value="default">
+      <ion-label>Available</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="saved">
+      <ion-label>Saved</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
   <ion-list>
     <ng-container *ngIf="musicasFiltradas.length > 0; else noMusicas">
-      <ion-item *ngFor="let musica of musicasFiltradas" [class.playing]="musica === musicaAtual" class="music-card">
+      <ion-item *ngFor="let musica of musicasFiltradas"
+                [class.playing]="musica === musicaAtual"
+                class="music-card">
         <ion-thumbnail slot="start" (click)="togglePreview(musica)">
           <ion-icon name="musical-notes" class="music-icon"></ion-icon>
         </ion-thumbnail>
@@ -38,14 +36,26 @@
           <h3>{{ musica.titulo }}</h3>
         </ion-label>
 
-        <ion-button *ngIf="abaAtual === 'default'" size="small" fill="solid" class="add-btn" slot="end"
-          (click)="selecionarMusica(musica)">
-          {{ estaSelecionada(musica) ? 'Add' : '' }}
-          <ion-icon *ngIf="!estaSelecionada(musica)" name="download-outline"></ion-icon>
-        </ion-button>
+        <ng-container *ngIf="abaAtual === 'default'">
+          <ion-button size="small" fill="solid" class="download-btn" slot="end"
+                      (click)="adicionarAoSaved(musica)">
+            <ion-icon name="download-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button
+  size="small"
+  fill="solid"
+  class="download-btn"
+  slot="end"
+  [disabled]="!musicasSalvas.includes(musica) || estaSelecionada(musica)"
+  (click)="selecionarMusica(musica)">
+  Add
+</ion-button>
+
+        </ng-container>
 
         <ion-button *ngIf="abaAtual === 'saved'" size="small" fill="outline" color="danger" class="remove-btn"
-          slot="end" (click)="removerMusica(musica)">
+                    slot="end" (click)="removerMusica(musica)">
           Remove
         </ion-button>
       </ion-item>
@@ -54,12 +64,14 @@
 
   <ng-template #noMusicas>
     <div class="no-music-msg">
-      <p><strong>No songs were saved yet!</strong></p>
+      <p><strong>No songs were found.</strong></p>
     </div>
   </ng-template>
 
-  <div class="footer-btn">
-    <ion-button expand="block" class="save-btn" (click)="guardarMusica()">
+  <div class="footer-btn" *ngIf="abaAtual === 'default'">
+    <ion-button expand="block" class="add-button"
+                [disabled]="musicasSelecionadas.length === 0"
+                (click)="guardarMusica()">
       Save Selection
     </ion-button>
   </div>

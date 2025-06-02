@@ -5,13 +5,14 @@ import { Router } from '@angular/router';
   selector: 'app-escolher-musica',
   templateUrl: './escolher-musica.page.html',
   styleUrls: ['./escolher-musica.page.scss'],
-  standalone:false,
+  standalone: false,
 })
 export class EscolherMusicaPage {
   searchTerm = '';
   abaAtual = 'default';
   musicaAtual: any = null;
   audioAtual: HTMLAudioElement | null = null;
+
   musicasSelecionadas: any[] = [];
   musicasFiltradas: any[] = [];
   musicasSalvas: any[] = [];
@@ -38,20 +39,32 @@ export class EscolherMusicaPage {
   filtrarMusicas() {
     const base = this.abaAtual === 'saved' ? this.musicasSalvas : this.musicas;
     const termo = this.searchTerm.toLowerCase();
-    this.musicasFiltradas = base.filter((m: any) => m.titulo.toLowerCase().includes(termo));
+    this.musicasFiltradas = base.filter((m: any) =>
+      m.titulo.toLowerCase().includes(termo)
+    );
+  }
+
+  adicionarAoSaved(musica: any) {
+    const jaSalva = this.musicasSalvas.find(m => m.titulo === musica.titulo);
+    if (!jaSalva) {
+      this.musicasSalvas.push(musica);
+    }
   }
 
   estaSelecionada(musica: any): boolean {
-    return this.musicasSelecionadas.includes(musica);
+    return this.musicasSelecionadas.length > 0 &&
+           this.musicasSelecionadas[0].titulo === musica.titulo;
   }
 
   selecionarMusica(musica: any) {
-    this.musicasSelecionadas = [musica]; // só uma pode ser selecionada
+    if (!this.musicasSalvas.includes(musica)) return;
+    this.musicasSelecionadas = [musica];
   }
 
   removerMusica(musica: any) {
-    this.musicasSalvas = this.musicasSalvas.filter((m: any) => m !== musica);
-    localStorage.setItem('musicaSelecionada', JSON.stringify(this.musicasSalvas[0] || null));
+    this.musicasSalvas = this.musicasSalvas.filter(m => m !== musica);
+    this.musicasSelecionadas = this.musicasSelecionadas.filter(m => m !== musica);
+    localStorage.removeItem('musicaSelecionada');
     this.filtrarMusicas();
   }
 
@@ -59,7 +72,11 @@ export class EscolherMusicaPage {
     if (this.musicasSelecionadas.length === 0) return;
     const musica = this.musicasSelecionadas[0];
     localStorage.setItem('musicaSelecionada', JSON.stringify(musica));
-    this.router.navigate(['/criar-album']);
+
+    const ficheiros = JSON.parse(localStorage.getItem('fotosSelecionadasTemp') || '[]');
+    this.router.navigate(['/criar-album'], {
+      state: { ficheiros }
+    });
   }
 
   togglePreview(musica: any) {
