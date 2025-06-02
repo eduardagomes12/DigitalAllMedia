@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalhes',
@@ -14,7 +14,8 @@ export class DetalhesPage implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router 
   ) {}
 
   ngOnInit() {
@@ -38,14 +39,19 @@ export class DetalhesPage implements OnInit {
   async adicionarDetalhes() {
     if (this.deliveryForm.valid) {
       console.log(this.deliveryForm.value);
+
       const toast = await this.toastController.create({
         message: 'Delivery details added successfully!',
         duration: 2000,
         cssClass: 'custom-toast-success',
       });
       await toast.present();
+
+      this.router.navigate(['/confirm-order']);
+
     } else {
       this.deliveryForm.markAllAsTouched();
+
       const toast = await this.toastController.create({
         message: 'Please fill in all required fields correctly.',
         duration: 2500,

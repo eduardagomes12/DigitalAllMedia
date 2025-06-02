@@ -59,7 +59,7 @@
             </ion-button>
           </div>
 
-          <!-- Resumo com edição -->
+          <!-- Summary -->
           <div class="summary-section" *ngFor="let item of items; let i = index">
             <div class="summary-item">
               <img [src]="item.cover" class="thumb" />
@@ -80,16 +80,27 @@
       </div>
 
       <!-- STEP 3 -->
-      <div class="step">
+      <div class="step active">
         <div class="dot"></div>
         <div class="text">
-          <div class="title">3. Delivery Details</div>
-          <div class="subtitle">e.g. Name, Address, Instructions</div>
+          <div class="title">
+            3. Delivery Details
+            <ion-button fill="clear" size="small" class="edit-btn" routerLink="/detalhes">
+              EDIT
+            </ion-button>
+          </div>
+          <div class="subtitle">
+            {{ deliveryInfo.nome }}<br />
+            {{ deliveryInfo.morada }}, {{ deliveryInfo.codigoPostal }} {{ deliveryInfo.cidade }}<br />
+            {{ deliveryInfo.contacto }} / {{ deliveryInfo.email }}<br />
+            {{ deliveryInfo.metodo === 'home' ? 'Home Delivery' : 'Pickup at Store' }} - {{ deliveryInfo.data }}<br />
+            {{ deliveryInfo.infoAdicional }}
+          </div>
         </div>
       </div>
 
       <!-- STEP 4 -->
-      <div class="step">
+      <div class="step active">
         <div class="dot"></div>
         <div class="text">
           <div class="title">4. Confirm Order</div>
@@ -100,10 +111,8 @@
   </div>
 
   <!-- Continue Button -->
-  <ion-button expand="block" class="add-button" (click)="continuar()">
-   
+  <ion-button expand="block" class="add-button" (click)="confirmar()">
     <ion-icon name="checkmark-circle" slot="start"></ion-icon>
-    Continue
+    Finalize Order
   </ion-button>
-
 </ion-content>

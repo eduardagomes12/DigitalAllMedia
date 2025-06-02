@@ -23,7 +23,7 @@
         <ion-item *ngFor="let option of printOptionsPhotos">
           <ion-checkbox
             slot="start"
-            [checked]="selectedPhotoOptions[i]?.includes(option.label)"
+            [checked]="selectedPhotoOptions[i].includes(option.label)"
             (ionChange)="togglePhotoOption(i, option.label, $event.detail.checked)">
           </ion-checkbox>
           <ion-label>
@@ -44,7 +44,7 @@
         <ion-item *ngFor="let option of printOptionsAlbums">
           <ion-checkbox
             slot="start"
-            [checked]="selectedAlbumOptions[j]?.includes(option.label)"
+            [checked]="selectedAlbumOptions[j].includes(option.label)"
             (ionChange)="toggleAlbumOption(j, option.label, $event.detail.checked)">
           </ion-checkbox>
           <ion-label>

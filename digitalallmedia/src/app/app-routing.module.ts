@@ -94,16 +94,19 @@ const routes: Routes = [
   {
     path: 'detalhes',
     loadChildren: () => import('./detalhes/detalhes.module').then( m => m.DetalhesPageModule)
-  },  {
+  },
+  {
     path: 'meus-albuns',
     loadChildren: () => import('./meus-albuns/meus-albuns.module').then( m => m.MeusAlbunsPageModule)
   },
   {
     path: 'cart',
     loadChildren: () => import('./cart/cart.module').then( m => m.CartPageModule)
-  }
-
-
+  },
+  {
+    path: 'confirm-order',
+    loadChildren: () => import('./confirm-order/confirm-order.module').then( m => m.ConfirmOrderPageModule)
+  },
 ];
 
 @NgModule({
