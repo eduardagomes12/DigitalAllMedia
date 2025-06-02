@@ -1,13 +1,86 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>cart</ion-title>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" routerLink="/profile" class="avatar-button">
+        <ion-avatar class="avatar-container">
+          <img src="assets/images/icon_profile.png" />
+          <span class="online-indicator"></span>
+        </ion-avatar>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Digital ALL Media</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">cart</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="cart-page ion-padding">
+  <h2 class="page-title">Pending Orders</h2>
+
+  <div *ngIf="orders.length > 0; else noOrders">
+    <ion-card class="order-card" *ngFor="let order of orders">
+      <div class="order-row">
+        <ion-checkbox
+          [checked]="isSelected(order.ref)"
+          (ionChange)="toggleSelection(order.ref)"
+          class="order-checkbox"
+        ></ion-checkbox>
+
+        <div class="order-content">
+          <div class="top-line">
+            <div>
+              <div class="ref">Ref: {{ order.ref }}</div>
+              <p><strong>{{ order.title }}</strong></p>
+              <p>Unit Price: €{{ order.unitPrice.toFixed(2) }}</p>
+              <p><strong>Total: €{{ (order.quantity * order.unitPrice).toFixed(2) }}</strong></p>
+            </div>
+
+            <!-- Controlo de quantidade -->
+            <div class="quantity-control">
+              <ion-button fill="clear" size="small" (click)="decreaseQuantity(order)">
+                <ion-icon name="remove-circle-outline"></ion-icon>
+              </ion-button>
+              <span class="quantity-text">{{ order.quantity }}</span>
+              <ion-button fill="clear" size="small" (click)="increaseQuantity(order)">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botão de eliminar -->
+        <ion-button fill="clear" class="trash-button" (click)="removeOrder(order.ref)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-card>
+
+    <!-- Total -->
+    <div class="total-line">
+      <span>Total:</span>
+      <strong>€{{ getTotal() }}</strong>
+    </div>
+
+    <!-- Botão Finalizar -->
+    <ion-button expand="block" routerLink="/confirm-order" class="finalize-button">
+      Finalize Order
+    </ion-button>
+
+    <div class="continue-shopping">
+       or <a routerLink="/tabs">continue shopping</a>
+    </div>
+
+  </div>
+
+  <ng-template #noOrders>
+    <div class="empty-state">
+      <img src="assets/images/empty-cart.png" alt="Empty Cart" />
+      <p class="empty-text">No pending orders yet.</p>
+    </div>
+  </ng-template>
 </ion-content>
