@@ -1,9 +1,9 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
-const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'digitalallmedia',
-  webDir: 'www'
-};
+  const config: CapacitorConfig = {
+    appId: 'pt.Grupo40.DigitalAllMedia',
+    appName: 'DigitalAllMedia',
+    webDir: 'www'
+  };
 
-export default config;
+  export default config;
