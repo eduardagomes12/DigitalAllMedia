@@ -1,37 +1,40 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.page.html',
   styleUrls: ['./cart.page.scss'],
-  standalone: false,
+  standalone: false
 })
 export class CartPage {
+
   orders = [
-    { ref: 'ORD-001', title: 'Photo Album: Italy Trip', quantity: 1, unitPrice: 24.99 },
-    { ref: 'ORD-002', title: 'Canvas Print: Sunset', quantity: 2, unitPrice: 24.99 },
+    { ref: 'ORD-001', title: 'Photo Album: Italy Trip', unitPrice: 24.99, quantity: 1 },
+    { ref: 'ORD-002', title: 'Canvas Print: Sunset', unitPrice: 24.99, quantity: 2 }
   ];
 
-  selectedRefs: Set<string> = new Set();
+  selectedRefs: string[] = [];
+
+  constructor(private cartService: CartService, private router: Router) {}
+
+  isSelected(ref: string): boolean {
+    return this.selectedRefs.includes(ref);
+  }
 
   toggleSelection(ref: string) {
-    if (this.selectedRefs.has(ref)) {
-      this.selectedRefs.delete(ref);
+    if (this.isSelected(ref)) {
+      this.selectedRefs = this.selectedRefs.filter(r => r !== ref);
     } else {
-      this.selectedRefs.add(ref);
+      this.selectedRefs.push(ref);
     }
   }
 
-  isSelected(ref: string): boolean {
-    return this.selectedRefs.has(ref);
-  }
-
-  getTotal(): string {
-    const total = this.orders
-      .filter(order => this.selectedRefs.has(order.ref))
-      .reduce((sum, o) => sum + o.quantity * o.unitPrice, 0);
-
-    return total.toFixed(2);
+  getTotal(): number {
+    return this.orders
+      .filter(o => this.selectedRefs.includes(o.ref))
+      .reduce((sum, o) => sum + (o.unitPrice * o.quantity), 0);
   }
 
   increaseQuantity(order: any) {
@@ -39,15 +42,17 @@ export class CartPage {
   }
 
   decreaseQuantity(order: any) {
-    if (order.quantity > 1) {
-      order.quantity--;
-    }
+    if (order.quantity > 1) order.quantity--;
   }
 
   removeOrder(ref: string) {
-    this.orders = this.orders.filter(order => order.ref !== ref);
-    this.selectedRefs.delete(ref);
+    this.orders = this.orders.filter(o => o.ref !== ref);
+    this.selectedRefs = this.selectedRefs.filter(r => r !== ref);
   }
 
-
+  finalizeOrder() {
+    const selectedOrders = this.orders.filter(o => this.selectedRefs.includes(o.ref));
+    this.cartService.setOrders(selectedOrders);
+    this.router.navigate(['/confirm-order']);
+  }
 }

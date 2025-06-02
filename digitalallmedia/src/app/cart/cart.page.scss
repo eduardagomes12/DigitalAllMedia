@@ -7,6 +7,7 @@
   flex-direction: column;
   height: 100%;
   background-color: #F6F6F6;
+  padding-bottom: 180px; // espaço para o footer fixo
 }
 
 .page-title {
@@ -26,6 +27,16 @@
 .order-row {
   display: flex;
   gap: 12px;
+  position: relative;
+}
+
+.order-checkbox {
+  --checkbox-background: white;
+  --checkbox-background-checked: #6b0f0f;
+  --border-color: #6b0f0f;
+  --checkmark-color: white;
+  --size: 20px;
+  margin-top: 10px;
 }
 
 .order-content {
@@ -39,15 +50,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.order-checkbox {
-  --checkbox-background: white;
-  --checkbox-background-checked: #6b0f0f;
-  --border-color: #6b0f0f;
-  --checkmark-color: white;
-  --size: 20px;
-  margin-top: 10px;
 }
 
 .ref {
@@ -73,26 +75,14 @@ ion-button[size="small"] {
   --color: #6b0f0f;
 }
 
-.total-line {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  font-size: 24px;
-  font-weight: bold;
-  color: #6b0f0f;
-  margin-top: 310px;
-  margin-bottom: 26px;
-  padding-right: 4px;
-}
-
-.finalize-button {
-  --background: #6b0f0f;
-  --border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  height: 44px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+.trash-button {
+  position: absolute;
+  margin-top: -2px;
+  right: 2px;
+  --color: #6b0f0f;
+  --padding-start: 0;
+  --padding-end: 0;
+  z-index: 2;
 }
 
 .empty-state {
@@ -112,7 +102,6 @@ ion-button[size="small"] {
   font-weight: 500;
 }
 
-/* Avatar no header */
 .avatar-container {
   position: relative;
   width: 36px;
@@ -142,26 +131,41 @@ ion-button[size="small"] {
   --box-shadow: none;
 }
 
-.order-row {
-  display: flex;
-  gap: 12px;
-  position: relative;
+/* FOOTER FIXO */
+.cart-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #f6f6f6;
+  padding: 16px;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+  z-index: 100;
 }
 
-.trash-button {
-  position: absolute;
-  margin-top: -2px;
-  right: 2px;
-  --color: #6b0f0f;
-  --padding-start: 0;
-  --padding-end: 0;
-  z-index: 2;
+.total-line {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #6b0f0f;
+  margin-bottom: 8px;
+}
+
+.finalize-button {
+  --background: #6b0f0f;
+  --border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  height: 44px;
+  margin-bottom: 8px;
+  box-shadow: none;
 }
 
 .continue-shopping {
   text-align: center;
-  margin-top: 12px;
-  font-size: 15px;
+  font-size: 14px;
   color: #6b0f0f;
 
   a {

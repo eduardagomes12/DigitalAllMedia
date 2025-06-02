@@ -22,7 +22,7 @@
 <ion-content class="cart-page ion-padding">
   <h2 class="page-title">Pending Orders</h2>
 
-  <div *ngIf="orders.length > 0; else noOrders">
+  <div *ngIf="orders.length > 0; else noOrders" class="order-list">
     <ion-card class="order-card" *ngFor="let order of orders">
       <div class="order-row">
         <ion-checkbox
@@ -40,7 +40,6 @@
               <p><strong>Total: €{{ (order.quantity * order.unitPrice).toFixed(2) }}</strong></p>
             </div>
 
-            <!-- Controlo de quantidade -->
             <div class="quantity-control">
               <ion-button fill="clear" size="small" (click)="decreaseQuantity(order)">
                 <ion-icon name="remove-circle-outline"></ion-icon>
@@ -53,28 +52,11 @@
           </div>
         </div>
 
-        <!-- Botão de eliminar -->
         <ion-button fill="clear" class="trash-button" (click)="removeOrder(order.ref)">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
       </div>
     </ion-card>
-
-    <!-- Total -->
-    <div class="total-line">
-      <span>Total:</span>
-      <strong>€{{ getTotal() }}</strong>
-    </div>
-
-    <!-- Botão Finalizar -->
-    <ion-button expand="block" routerLink="/confirm-order" class="finalize-button">
-      Finalize Order
-    </ion-button>
-
-    <div class="continue-shopping">
-       or <a routerLink="/tabs">continue shopping</a>
-    </div>
-
   </div>
 
   <ng-template #noOrders>
@@ -84,3 +66,20 @@
     </div>
   </ng-template>
 </ion-content>
+
+<!-- FOOTER FIXO -->
+<div class="cart-footer">
+  <div class="total-line">
+    <span>Total:</span>
+    <strong>€{{ getTotal() }}</strong>
+  </div>
+
+  <ion-button expand="block" routerlink="/" (click)="finalizeOrder()" class="finalize-button">
+    Finalize Order
+  </ion-button>
+
+
+  <div class="continue-shopping">
+    or <a routerLink="/tabs">continue shopping</a>
+  </div>
+</div>
