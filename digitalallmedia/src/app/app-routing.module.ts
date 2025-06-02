@@ -106,7 +106,11 @@ const routes: Routes = [
   {
     path: 'confirm-order',
     loadChildren: () => import('./confirm-order/confirm-order.module').then( m => m.ConfirmOrderPageModule)
+  },  {
+    path: 'confirmar-encomenda',
+    loadChildren: () => import('./confirmar-encomenda/confirmar-encomenda.module').then( m => m.ConfirmarEncomendaPageModule)
   },
+
 ];
 
 @NgModule({

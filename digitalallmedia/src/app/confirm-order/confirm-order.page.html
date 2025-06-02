@@ -59,7 +59,6 @@
             </ion-button>
           </div>
 
-          <!-- Summary -->
           <div class="summary-section" *ngFor="let item of items; let i = index">
             <div class="summary-item">
               <img [src]="item.cover" class="thumb" />
@@ -90,17 +89,25 @@
             </ion-button>
           </div>
           <div class="subtitle">
-            {{ deliveryInfo.nome }}<br />
-            {{ deliveryInfo.morada }}, {{ deliveryInfo.codigoPostal }} {{ deliveryInfo.cidade }}<br />
-            {{ deliveryInfo.contacto }} / {{ deliveryInfo.email }}<br />
-            {{ deliveryInfo.metodo === 'home' ? 'Home Delivery' : 'Pickup at Store' }} - {{ deliveryInfo.data }}<br />
-            {{ deliveryInfo.infoAdicional }}
+            <div *ngIf="deliveryInfo.nome">{{ deliveryInfo.nome }}</div>
+            <div *ngIf="deliveryInfo.morada">
+              {{ deliveryInfo.morada }}, {{ deliveryInfo.codigoPostal }} {{ deliveryInfo.cidade }}
+            </div>
+            <div *ngIf="deliveryInfo.contacto">
+              {{ deliveryInfo.contacto }} / {{ deliveryInfo.email }}
+            </div>
+            <div *ngIf="deliveryInfo.metodo">
+              {{ deliveryInfo.metodo === 'home' ? 'Home Delivery' : 'Pickup at Store' }} - {{ deliveryInfo.data }}
+            </div>
+            <div *ngIf="deliveryInfo.infoAdicional">
+              {{ deliveryInfo.infoAdicional }}
+            </div>
           </div>
         </div>
       </div>
 
       <!-- STEP 4 -->
-      <div class="step active">
+      <div class="step">
         <div class="dot"></div>
         <div class="text">
           <div class="title">4. Confirm Order</div>
@@ -110,9 +117,13 @@
     </div>
   </div>
 
-  <!-- Continue Button -->
   <ion-button expand="block" class="add-button" (click)="confirmar()">
     <ion-icon name="checkmark-circle" slot="start"></ion-icon>
     Finalize Order
   </ion-button>
+  <div class="continue-shopping" (click)="goToTabs()">
+
+    Or continue shopping
+  </div>
+
 </ion-content>
