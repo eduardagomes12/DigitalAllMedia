@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" routerLink="/profile" class="avatar-button">
+        <ion-avatar class="avatar-container">
+          <img src="assets/images/icon_profile.png" />
+          <span class="online-indicator"></span>
+        </ion-avatar>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Digital ALL Media</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/pesquisa">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pagina-albuns" fullscreen>
+
+  <h2 class="titulo-secao">Meus Álbuns</h2>
+
+  <!-- BOTÃO EM FORMATO DE CARD TOTALMENTE CLICÁVEL -->
+  <ion-card class="card-album criar-album-card" (click)="abrirCriarAlbum()">
+    <div class="criar-album-texto">
+      <ion-icon name="add-circle-outline"></ion-icon>
+      <span>Criar Álbum</span>
+    </div>
+  </ion-card>
+
+
+  <div class="lista-albuns">
+    <ion-card class="card-album" *ngFor="let album of albuns">
+      <img [src]="album.imagem" />
+      <div class="titulo-album">{{ album.nome }}</div>
+    </ion-card>
+  </div>
+
+  <!-- BARRA FLUTUANTE -->
+  <div class="floating-bar">
+    <ion-button fill="clear" routerLink="/impressao">
+      <ion-icon name="cart-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="solid" class="main-button" (click)="toggleMenu()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" routerLink="/explore-container">
+      <ion-icon name="albums-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- MENU POP-UP -->
+  <ion-card *ngIf="mostrarMenu" class="popup-menu">
+    <ion-item button routerLink="/selecionar-ficheiros" (click)="toggleMenu()" lines="none">
+      <ion-icon slot="start" name="folder-open"></ion-icon>
+      <ion-label>Criar Álbum</ion-label>
+    </ion-item>
+    <ion-item button routerLink="/remover-album" (click)="toggleMenu()" lines="none">
+      <ion-icon slot="start" name="trash"></ion-icon>
+      <ion-label>Remover Álbum</ion-label>
+    </ion-item>
+  </ion-card>
+
+</ion-content>
