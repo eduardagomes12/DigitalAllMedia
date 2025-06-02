@@ -10,24 +10,24 @@
 </ion-header>
 
 <ion-content class="modal-content">
-
   <ion-list lines="inset">
 
+    <!-- Tags -->
     <ion-item>
       <ion-label position="floating">Tags (keywords)</ion-label>
       <ion-input [(ngModel)]="tags"></ion-input>
     </ion-item>
 
+    <!-- Categoria dinâmica -->
     <ion-item>
       <ion-label>Category</ion-label>
-      <ion-select [(ngModel)]="categoria" interface="popover">
+      <ion-select [(ngModel)]="categoria" interface="alert" class="select-bordoux">
         <ion-select-option value="">Any</ion-select-option>
-        <ion-select-option value="Travel">Travel</ion-select-option>
-        <ion-select-option value="City">City</ion-select-option>
-        <ion-select-option value="Event">Event</ion-select-option>
+        <ion-select-option *ngFor="let cat of categoriasDisponiveis" [value]="cat">{{ cat }}</ion-select-option>
       </ion-select>
     </ion-item>
 
+    <!-- Data -->
     <ion-item>
       <ion-label>Date</ion-label>
       <ion-datetime
@@ -42,5 +42,4 @@
     <ion-button expand="block" class="clear-button" fill="outline" (click)="limpar()">Clear Filters</ion-button>
     <ion-button expand="block" class="apply-button" (click)="aplicar()">Apply Filters</ion-button>
   </div>
-
 </ion-content>
