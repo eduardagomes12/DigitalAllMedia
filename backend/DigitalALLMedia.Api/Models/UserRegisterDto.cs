@@ -13,6 +13,6 @@ namespace DigitalALLMedia.Api.Models
         [Required]
         public string Password { get; set; }
 
-        public string? ProfileImageUrl { get; set; } // <-- ADICIONADO
+        public string? ProfileImageUrl { get; set; } 
     }
 }
