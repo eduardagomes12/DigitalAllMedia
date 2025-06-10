@@ -6,13 +6,13 @@ import { IonicModule } from '@ionic/angular';
 import { FiltrosModalComponent } from './filtros-modal.component';
 
 @NgModule({
-  declarations: [FiltrosModalComponent], // ✅ Agora permitido, pois não é mais standalone
+  declarations: [FiltrosModalComponent],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule
   ],
-  exports: [FiltrosModalComponent], // ✅ Exportado para uso externo
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] // ✅ Suporta elementos do Ionic
+  exports: [FiltrosModalComponent], 
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] 
 })
 export class FiltrosModalModule {}

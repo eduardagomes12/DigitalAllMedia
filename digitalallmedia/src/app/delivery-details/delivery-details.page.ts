@@ -74,7 +74,7 @@ export class DeliveryDetailsPage {
   }
 
   async continuar() {
-    // 👉 Guarda os items no storage para serem usados no resumo final
+    //  Guarda os items no storage para serem usados no resumo final
     await this.storage.set('finalItems', this.items);
     this.router.navigate(['/detalhes']);
   }

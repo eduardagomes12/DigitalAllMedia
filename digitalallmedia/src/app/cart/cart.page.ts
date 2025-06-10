@@ -72,7 +72,7 @@ export class CartPage {
       await this.storage.set('finalItems', finalItems);
       await this.storage.set('finalDeliveryInfo', finalDeliveryInfo);
 
-      // 👉 Limpar a encomenda selecionada do array de pendingOrders
+      //  Limpar a encomenda selecionada do array de pendingOrders
       const allPending = await this.storage.get('pendingOrders') || [];
       const updatedPending = allPending.filter((o: any) => o.ref !== selectedOrder.ref);
       await this.storage.set('pendingOrders', updatedPending);
